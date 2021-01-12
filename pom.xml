@@ -44,33 +44,51 @@
         please contact the sales department at sales@jahia.com.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>jahia-modules</artifactId>
         <groupId>org.jahia.modules</groupId>
+        <artifactId>jahia-modules</artifactId>
         <version>8.0.2.0-SNAPSHOT</version>
     </parent>
     <groupId>org.foo.modules</groupId>
     <artifactId>sample-oauth</artifactId>
-    <name>sample-oauth</name>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
+    <name>sample-oauth</name>
     <description>This is the custom module (sample-oauth) for running on a Jahia server.</description>
-
     <scm>
-        <connection>scm:dummy:uri</connection>
-        <developerConnection>scm:dummy:uri</developerConnection>
+        <connection>scm:git:git@github.com:Jahia/sample-oauth.git</connection>
+        <developerConnection>scm:git:git@github.com:Jahia/sample-oauth.git</developerConnection>
+        <url>https://github.com/Jahia/sample-oauth</url>
     </scm>
-
+    <properties>
+        <jahia-depends>default,jahia-oauth,jahia-authentication</jahia-depends>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.jahia.modules</groupId>
+            <artifactId>jahia-oauth</artifactId>
+            <version>3.1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jahia.modules</groupId>
+            <artifactId>jahia-authentication</artifactId>
+            <version>1.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.scribejava</groupId>
+            <artifactId>scribejava-apis</artifactId>
+            <version>6.8.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
     <repositories>
         <repository>
-            <id>jahia-public</id>
-            <name>Jahia Public Repository</name>
-            <url>https://devtools.jahia.com/nexus/content/groups/public</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
@@ -78,9 +96,11 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+            <id>jahia-public</id>
+            <name>Jahia Public Repository</name>
+            <url>https://devtools.jahia.com/nexus/content/groups/public</url>
         </repository>
     </repositories>
-
     <build>
         <plugins>
             <plugin>
@@ -89,9 +109,26 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Jahia-Depends>default</Jahia-Depends>
+                        <Jahia-Source-Folders>/opt/jahia/dx/digital-factory-data/sources/${project.artifactId}
+                        </Jahia-Source-Folders>
+                        <_dsannotations>*</_dsannotations>
                     </instructions>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>jahia-maven-plugin</artifactId>
+                <groupId>org.jahia.server</groupId>
+                <executions>
+                    <execution>
+                        <id>i18n2js</id>
+                        <goals>
+                            <goal>javascript-dictionary</goal>
+                        </goals>
+                        <configuration>
+                            <dictionaryName>sampleoauthi18n</dictionaryName>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -1,2 +1,12 @@
 <jnt = 'http://www.jahia.org/jahia/nt/1.0'>
 <jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+<soauthnt = 'http://auth.foo.org/jahia/nt/1.0'>
+
+[soauthnt:keycloakOAuthView] > jnt:content, jmix:authConnectorSettingView
+
+[soauthnt:keycloakButton] > jnt:content, joamix:oauthButtonConnector
+
+[soauthnt:stravaOAuthView] > jnt:content, jmix:authConnectorSettingView
+
+[soauthnt:stravaButton] > jnt:content, joamix:oauthButtonConnector
+
