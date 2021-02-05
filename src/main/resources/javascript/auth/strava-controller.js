@@ -4,11 +4,13 @@
     StravaController.$inject = ['$location', 'settingsService', 'helperService', 'i18nService'];
     function StravaController($location, settingsService, helperService, i18nService) {
         var vm = this;
+        vm.isActivate = false;
         vm.expandedCard = false;
+        vm.callbackUrls = [];
         vm.callbackUrl = '';
         vm.saveSettings = () => {
             // Value can't be empty
-            if (!vm.apiKey || !vm.apiSecret || !vm.callbackUrl) {
+            if (!vm.apiKey || !vm.apiSecret || vm.callbackUrls.length === 0) {
                 helperService.errorToast(i18nService.message('label.missingMandatoryProperties'));
                 return false;
             }
@@ -16,11 +18,12 @@
             // the node name here must be the same as the one in your spring file
             settingsService.setConnectorData({
                 connectorServiceName: 'StravaApi20',
+                nodeType: 'soauthnt:stravaOAuthSettings',
                 properties: {
-                    enabled: vm.enabled,
+                    isActivate: vm.isActivate,
                     apiKey: vm.apiKey,
                     apiSecret: vm.apiSecret,
-                    callbackUrl: vm.callbackUrl,
+                    callbackUrls: vm.callbackUrls,
                     scope: vm.scope
                 }
             }).success(() => {
@@ -39,21 +42,34 @@
             vm.expandedCard = !vm.expandedCard;
         };
 
+        vm.addUrl = (isValidUrl) => {
+            if (isValidUrl && vm.callbackUrl !== '') {
+                vm.callbackUrls.push(vm.callbackUrl);
+                vm.callbackUrl = '';
+            } else if (vm.callbackUrl !== '' && !isValidUrl) {
+                helperService.errorToast(i18nService.message('joant_googleOAuthView.error.callbackURL.notAValidURL'))
+            }
+        };
+
+        vm.removeUrl = (index) => {
+            vm.callbackUrls.splice(index, 1);
+        };
+
         // must mach value in the plugin in pom.xml
         i18nService.addKey(sampleoauthi18n);
 
-        settingsService.getConnectorData('StravaApi20', ['enabled', 'apiKey', 'apiSecret', 'callbackUrl', 'scope']).success(data => {
+        settingsService.getConnectorData('StravaApi20', ['isActivate', 'apiKey', 'apiSecret', 'callbackUrls', 'scope']).success(data => {
             if (data && !angular.equals(data, {})) {
                 vm.connectorHasSettings = true;
-                vm.enabled = data.enabled;
+                vm.isActivate = data.isActivate;
                 vm.apiKey = data.apiKey;
                 vm.apiSecret = data.apiSecret;
-                vm.callbackUrl = data.callbackUrl;
+                vm.callbackUrls = data.callbackUrls;
                 vm.scope = data.scope
                 vm.expandedCard = true;
             } else {
                 vm.connectorHasSettings = false;
-                vm.enabled = false;
+                vm.isActivate = false;
             }
         }).error(data => {
             helperService.errorToast(i18nService.message('soauthnt_stravaOAuthView') + ' ' + data.error);

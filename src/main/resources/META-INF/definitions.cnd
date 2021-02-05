@@ -1,12 +1,18 @@
 <jnt = 'http://www.jahia.org/jahia/nt/1.0'>
 <jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+<joamix = 'http://www.jahia.org/jahia/joa/mix/1.0'>
 <soauthnt = 'http://auth.foo.org/jahia/nt/1.0'>
 
-[soauthnt:keycloakOAuthView] > jnt:content, jmix:authConnectorSettingView
+[soauthnt:keycloakOAuthView] > jnt:content, joamix:oauthConnectorView
 
 [soauthnt:keycloakButton] > jnt:content, joamix:oauthButtonConnector
 
-[soauthnt:stravaOAuthView] > jnt:content, jmix:authConnectorSettingView
+[soauthnt:keycloakOAuthSettings] > joamix:oauthConnectorSettings
+ - baseUrl (string) mandatory
+ - realm (string) mandatory
+
+[soauthnt:stravaOAuthView] > jnt:content, joamix:oauthConnectorView
 
 [soauthnt:stravaButton] > jnt:content, joamix:oauthButtonConnector
 
+[soauthnt:stravaOAuthSettings] > joamix:oauthConnectorSettings

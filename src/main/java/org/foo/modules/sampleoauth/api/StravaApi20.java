@@ -1,8 +1,6 @@
 package org.foo.modules.sampleoauth.api;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
-import com.github.scribejava.core.oauth2.clientauthentication.ClientAuthentication;
-import com.github.scribejava.core.oauth2.clientauthentication.RequestBodyAuthenticationScheme;
 
 public final class StravaApi20 extends DefaultApi20 {
     private StravaApi20() {
@@ -24,10 +22,5 @@ public final class StravaApi20 extends DefaultApi20 {
     @Override
     protected String getAuthorizationBaseUrl() {
         return "https://www.strava.com/oauth/authorize";
-    }
-
-    @Override
-    public ClientAuthentication getClientAuthentication() {
-        return RequestBodyAuthenticationScheme.instance();
     }
 }

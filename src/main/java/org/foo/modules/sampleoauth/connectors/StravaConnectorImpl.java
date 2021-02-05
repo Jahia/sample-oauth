@@ -1,22 +1,18 @@
 package org.foo.modules.sampleoauth.connectors;
 
 import org.foo.modules.sampleoauth.api.StravaApi20;
-import org.jahia.modules.jahiaauth.service.ConnectorConfig;
-import org.jahia.modules.jahiaauth.service.ConnectorPropertyInfo;
-import org.jahia.modules.jahiaauth.service.ConnectorService;
-import org.jahia.modules.jahiaauth.service.JahiaAuthConstants;
+import org.jahia.modules.jahiaoauth.service.ConnectorService;
+import org.jahia.modules.jahiaoauth.service.JahiaOAuthConstants;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
-import org.jahia.modules.jahiaoauth.service.OAuthConnectorService;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-@Component(service = {StravaConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class}, property = {JahiaAuthConstants.CONNECTOR_SERVICE_NAME + "=" + StravaConnectorImpl.KEY}, immediate = true)
-public class StravaConnectorImpl implements OAuthConnectorService {
+@Component(service = {StravaConnectorImpl.class, ConnectorService.class}, property = {JahiaOAuthConstants.CONNECTOR_SERVICE_NAME + "=" + StravaConnectorImpl.KEY}, immediate = true)
+public class StravaConnectorImpl implements ConnectorService {
     public static final String KEY = "StravaApi20";
     private static final String PROTECTED_RESOURCE_URL = "https://www.strava.com/api/v3/athlete";
 
@@ -29,30 +25,42 @@ public class StravaConnectorImpl implements OAuthConnectorService {
 
     @Activate
     private void onActivate() {
-        jahiaOAuthService.addOAuthDefaultApi20(KEY, StravaApi20.instance());
+        jahiaOAuthService.addOAuth20Service(KEY, StravaApi20.instance());
     }
 
     @Deactivate
     private void onDeactivate() {
-        jahiaOAuthService.removeOAuthDefaultApi20(KEY);
+        jahiaOAuthService.removeOAuth20Service(KEY);
     }
 
     @Override
-    public String getProtectedResourceUrl(ConnectorConfig config) {
+    public String getProtectedResourceUrl() {
         return PROTECTED_RESOURCE_URL;
     }
 
     @Override
-    public List<ConnectorPropertyInfo> getAvailableProperties() {
-        return Arrays.asList(
-                new ConnectorPropertyInfo("username", "string"),
-                new ConnectorPropertyInfo("firstname", "string"),
-                new ConnectorPropertyInfo("lastname", "string")
-        );
+    public List<Map<String, Object>> getAvailableProperties() {
+        List<Map<String, Object>> availableProperties = new ArrayList<>();
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("name", "username");
+        properties.put("valueType", "string");
+        properties.put("canBeRequested", true);
+        availableProperties.add(properties);
+        properties = new HashMap<>();
+        properties.put("name", "firstname");
+        properties.put("valueType", "string");
+        properties.put("canBeRequested", true);
+        availableProperties.add(properties);
+        properties = new HashMap<>();
+        properties.put("name", "lastname");
+        properties.put("valueType", "string");
+        properties.put("canBeRequested", true);
+        availableProperties.add(properties);
+        return Collections.unmodifiableList(availableProperties);
     }
 
     @Override
-    public void validateSettings(ConnectorConfig connectorConfig) {
-        // Do nothing
+    public String getServiceName() {
+        return KEY;
     }
 }

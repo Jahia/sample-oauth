@@ -40,7 +40,7 @@
     <md-card-content layout="column" ng-show="keycloak.expandedCard">
         <form name="keycloakForm">
 
-            <md-switch ng-model="keycloak.enabled">
+            <md-switch ng-model="keycloak.isActivate">
                 <span message-key="label.activate"></span>
             </md-switch>
 
@@ -101,6 +101,8 @@
                 <md-input-container class="md-block" flex>
                     <label message-key="label.callbackURL"></label>
                     <input type="url" ng-model="keycloak.callbackUrl" name="callbackUrl"/>
+                    <md-icon class="md-icon-button" ng-click="keycloak.addUrl(keycloakForm.callbackUrl.$valid)">add
+                    </md-icon>
                     <div class="hint" ng-show="keycloakForm.callbackUrl.$valid"
                          message-key="soauthnt_keycloakOAuthView.hint.callbackURL"></div>
                     <div ng-messages="keycloakForm.callbackUrl.$error" ng-show="keycloakForm.callbackUrl.$invalid"
@@ -108,6 +110,14 @@
                         <div ng-message="url" message-key="error.notAValidURL"></div>
                     </div>
                 </md-input-container>
+            </div>
+            <div layout="row" ng-show="keycloak.callbackUrls.length > 0">
+                <md-list flex>
+                    <md-list-item ng-repeat="callbackUrl in keycloak.callbackUrls track by $index">
+                        <p>{{ callbackUrl }}</p>
+                        <md-button class="md-warn" ng-click="keycloak.removeUrl($index)">remove</md-button>
+                    </md-list-item>
+                </md-list>
             </div>
         </form>
 

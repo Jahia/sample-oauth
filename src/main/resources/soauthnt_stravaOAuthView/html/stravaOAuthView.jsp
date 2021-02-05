@@ -12,7 +12,8 @@
 <%--@elvariable id="renderContext" type="org.jahia.services.render.RenderContext"--%>
 <%--@elvariable id="currentResource" type="org.jahia.services.render.Resource"--%>
 <%--@elvariable id="url" type="org.jahia.services.render.URLGenerator"--%>
-<template:addResources type="javascript" resources="i18n/sample-oauth-i18n_${currentResource.locale}.js" var="i18nJSFile"/>
+<template:addResources type="javascript" resources="i18n/sample-oauth-i18n_${currentResource.locale}.js"
+                       var="i18nJSFile"/>
 <c:if test="${empty i18nJSFile}">
     <template:addResources type="javascript" resources="i18n/sample-oauth-i18n_en.js"/>
 </c:if>
@@ -38,7 +39,7 @@
 
     <md-card-content layout="column" ng-show="strava.expandedCard">
         <form name="stravaForm">
-            <md-switch ng-model="strava.enabled">
+            <md-switch ng-model="strava.isActivate">
                 <span message-key="label.activate"></span>
             </md-switch>
 
@@ -78,6 +79,8 @@
                 <md-input-container class="md-block" flex>
                     <label message-key="label.callbackURL"></label>
                     <input type="url" ng-model="strava.callbackUrl" name="callbackUrl"/>
+                    <md-icon class="md-icon-button" ng-click="strava.addUrl(stravaForm.callbackUrl.$valid)">add
+                    </md-icon>
                     <div class="hint" ng-show="stravaForm.callbackUrl.$valid"
                          message-key="soauthnt_stravaOAuthView.hint.callbackURL"></div>
                     <div ng-messages="stravaForm.callbackUrl.$error" ng-show="stravaForm.callbackUrl.$invalid"
@@ -85,6 +88,14 @@
                         <div ng-message="url" message-key="error.notAValidURL"></div>
                     </div>
                 </md-input-container>
+            </div>
+            <div layout="row" ng-show="strava.callbackUrls.length > 0">
+                <md-list flex>
+                    <md-list-item ng-repeat="callbackUrl in strava.callbackUrls track by $index">
+                        <p>{{ callbackUrl }}</p>
+                        <md-button class="md-warn" ng-click="strava.removeUrl($index)">remove</md-button>
+                    </md-list-item>
+                </md-list>
             </div>
         </form>
 

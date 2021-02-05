@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content xmlns:j="http://www.jahia.org/jahia/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0">
    <modules jcr:primaryType="jnt:modules">
-      <sample-oauth j:dependencies="default jahia-authentication jahia-oauth"
+      <sample-oauth j:dependencies="default jahia-oauth"
                     j:modulePriority="0"
                     j:moduleType="module"
                     j:title="sample-oauth"
