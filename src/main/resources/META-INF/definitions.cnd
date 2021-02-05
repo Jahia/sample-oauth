@@ -11,6 +11,12 @@
  - baseUrl (string) mandatory
  - realm (string) mandatory
 
+[soauthnt:linkedinOAuthView] > jnt:content, joamix:oauthConnectorView
+
+[soauthnt:linkedinButton] > jnt:content, joamix:oauthButtonConnector
+
+[soauthnt:linkedinOAuthSettings] > joamix:oauthConnectorSettings
+
 [soauthnt:stravaOAuthView] > jnt:content, joamix:oauthConnectorView
 
 [soauthnt:stravaButton] > jnt:content, joamix:oauthButtonConnector

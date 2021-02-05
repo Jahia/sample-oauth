@@ -1,7 +1,7 @@
 package org.foo.modules.sampleoauth.action;
 
 import org.apache.commons.lang.StringUtils;
-import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
+import org.foo.modules.sampleoauth.connectors.LinkedinConnectorImpl;
 import org.jahia.bin.Action;
 import org.jahia.bin.ActionResult;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthConstants;
@@ -26,21 +26,21 @@ import java.util.List;
 import java.util.Map;
 
 @Component(service = Action.class, immediate = true)
-public class KeycloakCallbackAction extends Action {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KeycloakCallbackAction.class);
-    private static final String NAME = "keycloakOAuthCallbackAction";
+public class LinkedinCallbackAction extends Action {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LinkedinCallbackAction.class);
+    private static final String NAME = "linkedinOAuthCallbackAction";
 
     private JahiaOAuthService jahiaOAuthService;
-    private KeycloakConnectorImpl keycloakConnectorImpl;
+    private LinkedinConnectorImpl linkedinConnectorImpl;
 
     @Reference(service = JahiaOAuthService.class)
     private void refJahiaOAuthService(JahiaOAuthService jahiaOAuthService) {
         this.jahiaOAuthService = jahiaOAuthService;
     }
 
-    @Reference(service = KeycloakConnectorImpl.class)
-    private void refKeycloakConnectorImpl(KeycloakConnectorImpl keycloakConnectorImpl) {
-        this.keycloakConnectorImpl = keycloakConnectorImpl;
+    @Reference(service = LinkedinConnectorImpl.class)
+    private void refLinkedinConnectorImpl(LinkedinConnectorImpl linkedinConnectorImpl) {
+        this.linkedinConnectorImpl = linkedinConnectorImpl;
     }
 
     @Activate
@@ -65,7 +65,7 @@ public class KeycloakCallbackAction extends Action {
                 public Boolean doInJCR(JCRSessionWrapper systemSession) throws RepositoryException {
                     JCRNodeWrapper jahiaOAuthNode = systemSession.getNode(sitePath).getNode(JahiaOAuthConstants.JAHIA_OAUTH_NODE_NAME);
                     try {
-                        jahiaOAuthService.extractAccessTokenAndExecuteMappers(jahiaOAuthNode, keycloakConnectorImpl.getServiceName(), token, state);
+                        jahiaOAuthService.extractAccessTokenAndExecuteMappers(jahiaOAuthNode, linkedinConnectorImpl.getServiceName(), token, state);
                         return true;
                     } catch (Exception ex) {
                         LOGGER.error("Could not authenticate user", ex);
@@ -74,7 +74,7 @@ public class KeycloakCallbackAction extends Action {
                 }
             });
         } else {
-            LOGGER.error("Could not authenticate user with Google, the callback from the Keycloak server was missing mandatory parameters");
+            LOGGER.error("Could not authenticate user with Google, the callback from the Linkedin server was missing mandatory parameters");
         }
 
         return new ActionResult(HttpServletResponse.SC_OK,
