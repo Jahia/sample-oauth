@@ -48,11 +48,13 @@ public class LinkedinConnectorImpl implements ConnectorService {
         availableProperties.add(properties);
         properties = new HashMap<>();
         properties.put("name", "firstname");
+        properties.put("propertyToRequest", "localizedFirstName");
         properties.put("valueType", "string");
         properties.put("canBeRequested", true);
         availableProperties.add(properties);
         properties = new HashMap<>();
         properties.put("name", "lastname");
+        properties.put("propertyToRequest", "localizedLastName");
         properties.put("valueType", "string");
         properties.put("canBeRequested", true);
         availableProperties.add(properties);
