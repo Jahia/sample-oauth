@@ -8,8 +8,8 @@
 [soauthnt:keycloakButton] > jnt:content, joamix:oauthButtonConnector
 
 [soauthnt:keycloakOAuthSettings] > joamix:oauthConnectorSettings
- - baseUrl (string) mandatory
- - realm (string) mandatory
+ - baseUrl (string)
+ - realm (string)
 
 [soauthnt:linkedinOAuthView] > jnt:content, joamix:oauthConnectorView
 

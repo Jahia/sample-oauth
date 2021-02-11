@@ -42,7 +42,8 @@ public class StravaConnectorImpl implements ConnectorService {
     public List<Map<String, Object>> getAvailableProperties() {
         List<Map<String, Object>> availableProperties = new ArrayList<>();
         Map<String, Object> properties = new HashMap<>();
-        properties.put("name", "username");
+        properties.put("name", "id");
+        properties.put("propertyToRequest", "username");
         properties.put("valueType", "string");
         properties.put("canBeRequested", true);
         availableProperties.add(properties);
