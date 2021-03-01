@@ -32,6 +32,16 @@
                   <stravaoauthview jcr:primaryType="soauthnt:stravaOAuthView"/>
                </pagecontent>
             </strava-oauth-view>
+            <azuread-oauth-view j:defaultTemplate="false"
+                                 j:hiddenTemplate="true"
+                                 j:invertCondition="false"
+                                 j:requireLoggedUser="false"
+                                 j:requirePrivilegedUser="false"
+                                 jcr:primaryType="jnt:contentTemplate">
+               <pagecontent jcr:primaryType="jnt:contentList">
+                  <azureadoauthview jcr:primaryType="soauthnt:azureADOAuthView"/>
+               </pagecontent>
+            </azuread-oauth-view>
          </templates>
       </sample-oauth>
    </modules>
