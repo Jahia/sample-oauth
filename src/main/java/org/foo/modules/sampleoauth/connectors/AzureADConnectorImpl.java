@@ -49,9 +49,10 @@ public class AzureADConnectorImpl implements OAuthConnectorService {
     @Override
     public List<ConnectorPropertyInfo> getAvailableProperties() {
         return Arrays.asList(
-                new ConnectorPropertyInfo("username", "string"),
-                new ConnectorPropertyInfo("firstname", "string"),
-                new ConnectorPropertyInfo("lastname", "string")
+                new ConnectorPropertyInfo("displayName", "string"),
+                new ConnectorPropertyInfo("surname", "string"),
+                new ConnectorPropertyInfo("userPrincipalName", "string"),
+                new ConnectorPropertyInfo("givenName", "string")
         );
     }
 
