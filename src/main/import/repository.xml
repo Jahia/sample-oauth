@@ -42,6 +42,16 @@
                   <azureadoauthview jcr:primaryType="soauthnt:azureADOAuthView"/>
                </pagecontent>
             </azuread-oauth-view>
+            <salesforce-oauth-view j:defaultTemplate="false"
+                                j:hiddenTemplate="true"
+                                j:invertCondition="false"
+                                j:requireLoggedUser="false"
+                                j:requirePrivilegedUser="false"
+                                jcr:primaryType="jnt:contentTemplate">
+               <pagecontent jcr:primaryType="jnt:contentList">
+                  <salesforceoauthview jcr:primaryType="soauthnt:salesforceOAuthView"/>
+               </pagecontent>
+            </salesforce-oauth-view>
          </templates>
       </sample-oauth>
    </modules>

@@ -1,7 +1,6 @@
 package org.foo.modules.sampleoauth.action;
 
-import org.foo.modules.sampleoauth.connectors.AzureADConnectorImpl;
-import org.foo.modules.sampleoauth.connectors.StravaConnectorImpl;
+import org.foo.modules.sampleoauth.connectors.SalesforceConnectorImpl;
 import org.jahia.bin.Action;
 import org.jahia.modules.jahiaauth.service.SettingsService;
 import org.jahia.modules.jahiaoauth.action.OAuthCallback;
@@ -12,8 +11,8 @@ import org.osgi.service.component.annotations.Reference;
 import org.springframework.http.HttpMethod;
 
 @Component(service = Action.class, immediate = true)
-public class AzureADCallbackAction extends OAuthCallback {
-    private static final String NAME = "azureADOAuthCallbackAction";
+public class SalesforceCallbackAction extends OAuthCallback {
+    private static final String NAME = "salesforceCallbackAction";
 
     private JahiaOAuthService jahiaOAuthService;
     private SettingsService settingsService;
@@ -31,10 +30,10 @@ public class AzureADCallbackAction extends OAuthCallback {
     @Activate
     public void onActivate() {
         setRequireAuthenticatedUser(false);
-        setRequiredMethods(HttpMethod.GET.name());
+        setRequiredMethods(HttpMethod.GET.name()+','+HttpMethod.POST.name());
         setJahiaOAuthService(jahiaOAuthService);
         setSettingsService(settingsService);
         setName(NAME);
-        setConnectorName(AzureADConnectorImpl.KEY);
+        setConnectorName(SalesforceConnectorImpl.KEY);
     }
 }

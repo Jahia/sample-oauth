@@ -14,3 +14,6 @@
 
 [soauthnt:azureADButton] > jnt:content, joamix:oauthButtonConnector
 
+[soauthnt:salesforceOAuthView] > jnt:content, jmix:authConnectorSettingView
+
+[soauthnt:salesforceButton] > jnt:content, joamix:oauthButtonConnector
