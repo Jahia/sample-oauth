@@ -1,4 +1,6 @@
 # Sample OAuth
+This module provides implementation samples and should not be used as is.
+This module is not supported.
 
 ## Maven dependencies
 
