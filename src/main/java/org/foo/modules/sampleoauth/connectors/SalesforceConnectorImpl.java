@@ -58,7 +58,7 @@ public class SalesforceConnectorImpl implements OAuthConnectorService {
                 new ConnectorPropertyInfo("photos", "string"),
                 new ConnectorPropertyInfo("user_type", "string"),
                 new ConnectorPropertyInfo("nickname", "string"),
-                new ConnectorPropertyInfo("email", "string"),
+                new ConnectorPropertyInfo("email", "email"),
                 new ConnectorPropertyInfo("email_verified", "string"),
                 new ConnectorPropertyInfo("address", "string"),
                 new ConnectorPropertyInfo("given_name", "string"),
