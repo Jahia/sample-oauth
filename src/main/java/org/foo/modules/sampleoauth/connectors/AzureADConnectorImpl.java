@@ -1,17 +1,20 @@
 package org.foo.modules.sampleoauth.connectors;
 
 import com.github.scribejava.apis.MicrosoftAzureActiveDirectory20Api;
-import org.jahia.modules.jahiaauth.service.ConnectorConfig;
-import org.jahia.modules.jahiaauth.service.ConnectorPropertyInfo;
-import org.jahia.modules.jahiaauth.service.ConnectorService;
-import org.jahia.modules.jahiaauth.service.JahiaAuthConstants;
+import org.jahia.modules.jahiaauth.service.*;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
 import org.jahia.modules.jahiaoauth.service.OAuthConnectorService;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,9 +22,18 @@ import java.util.List;
 public class AzureADConnectorImpl implements OAuthConnectorService {
     public static final String KEY = "AzureADApi20";
     private static final String TENANT_ID = "tenantID";
+    private ConfigurationAdmin configurationAdmin;
+    private SettingsService settingsService;
+    private static Logger logger = LoggerFactory.getLogger(AzureADConnectorImpl.class);
 
     private static final String PROTECTED_RESOURCE_URL = "https://login.microsoftonline.com/%s/v2.0/.well-known/openid-configuration";
    // private static final String PROTECTED_RESOURCE_URL = "https://login.microsoftonline.com/%s/oauth2/v2.0/authorize";
+
+    @Reference(service = SettingsService.class)
+    private void setSettingsService(SettingsService settingsService) {
+        this.settingsService = settingsService;
+    }
+
 
     private JahiaOAuthService jahiaOAuthService;
 
@@ -30,9 +42,34 @@ public class AzureADConnectorImpl implements OAuthConnectorService {
         this.jahiaOAuthService = jahiaOAuthService;
     }
 
+
+    @Reference(service = ConfigurationAdmin.class, name = "configurationAdmin")
+    private void setConfigurationAdmin(ConfigurationAdmin configurationAdmin) {
+        this.configurationAdmin = configurationAdmin;
+    }
+
+
     @Activate
     private void onActivate() {
-        jahiaOAuthService.addOAuthDefaultApi20(KEY, MicrosoftAzureActiveDirectory20Api.instance());
+        Configuration[] configurations = null;
+        try {
+            configurations = this.configurationAdmin.listConfigurations("(service.factoryPid=org.jahia.modules.auth)");
+        } catch (IOException e) {
+            logger.error("IOException reading org.jahia.modules.auth configs", e);
+        } catch (InvalidSyntaxException e) {
+            logger.error("InvalidSyntaxException reading org.jahia.modules.auth configs", e);
+        }
+
+        if (configurations != null) {
+            int length = configurations.length;
+            for(int i = 0; i < length; ++i) {
+                Configuration configuration = configurations[i];
+                ConnectorConfig config = settingsService.getConnectorConfig((String)configuration.getProperties().get("siteKey"), KEY);
+                if(config != null) {
+                    this.validateSettings(config);
+                }
+            }
+        }
     }
 
     @Deactivate
