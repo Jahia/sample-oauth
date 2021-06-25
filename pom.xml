@@ -53,7 +53,7 @@
     </parent>
     <groupId>org.foo.modules</groupId>
     <artifactId>sample-oauth</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>sample-oauth</name>
     <description>This is the custom module (sample-oauth) for running on a Jahia server.</description>
@@ -61,7 +61,7 @@
         <connection>scm:git:git@github.com:Jahia/sample-oauth.git</connection>
         <developerConnection>scm:git:git@github.com:Jahia/sample-oauth.git</developerConnection>
         <url>https://github.com/Jahia/sample-oauth</url>
-      <tag>1_0_0</tag>
+      <tag>HEAD</tag>
   </scm>
     <properties>
         <jahia-depends>default,jahia-oauth,jahia-authentication</jahia-depends>
