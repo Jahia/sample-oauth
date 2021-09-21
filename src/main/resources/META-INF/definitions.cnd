@@ -22,3 +22,10 @@
 [soauthnt:stravaButton] > jnt:content, joamix:oauthButtonConnector
 
 [soauthnt:stravaOAuthSettings] > joamix:oauthConnectorSettings
+
+[soauthnt:oktaOAuthView] > jnt:content, joamix:oauthConnectorView
+
+[soauthnt:oktaButton] > jnt:content, joamix:oauthButtonConnector
+
+[soauthnt:oktaOAuthSettings] > joamix:oauthConnectorSettings
+ - organization (string)

@@ -42,6 +42,16 @@
                   <stravaoauthview jcr:primaryType="soauthnt:stravaOAuthView"/>
                </pagecontent>
             </strava-oauth-view>
+            <okta-oauth-view j:defaultTemplate="false"
+                               j:hiddenTemplate="true"
+                               j:invertCondition="false"
+                               j:requireLoggedUser="false"
+                               j:requirePrivilegedUser="false"
+                               jcr:primaryType="jnt:contentTemplate">
+               <pagecontent jcr:primaryType="jnt:contentList">
+                  <oktaoauthview jcr:primaryType="soauthnt:oktaOAuthView"/>
+               </pagecontent>
+            </okta-oauth-view>
          </templates>
       </sample-oauth>
    </modules>
