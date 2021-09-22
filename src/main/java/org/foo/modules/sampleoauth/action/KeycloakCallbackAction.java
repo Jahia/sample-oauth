@@ -74,7 +74,7 @@ public class KeycloakCallbackAction extends Action {
                 }
             });
         } else {
-            LOGGER.error("Could not authenticate user with Google, the callback from the Keycloak server was missing mandatory parameters");
+            LOGGER.error("Could not authenticate user with Keycloak, the callback from the Keycloak server was missing mandatory parameters");
         }
 
         return new ActionResult(HttpServletResponse.SC_OK,

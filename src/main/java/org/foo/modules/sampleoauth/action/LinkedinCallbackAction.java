@@ -74,7 +74,7 @@ public class LinkedinCallbackAction extends Action {
                 }
             });
         } else {
-            LOGGER.error("Could not authenticate user with Google, the callback from the Linkedin server was missing mandatory parameters");
+            LOGGER.error("Could not authenticate user with Linkedin, the callback from the Linkedin server was missing mandatory parameters");
         }
 
         return new ActionResult(HttpServletResponse.SC_OK,

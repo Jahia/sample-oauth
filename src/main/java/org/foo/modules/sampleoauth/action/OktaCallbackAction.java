@@ -75,7 +75,7 @@ public class OktaCallbackAction extends Action {
                 }
             });
         } else {
-            LOGGER.error("Could not authenticate user with Google, the callback from the Strava server was missing mandatory parameters");
+            LOGGER.error("Could not authenticate user with Okta, the callback from the Okta server was missing mandatory parameters");
         }
 
         return new ActionResult(HttpServletResponse.SC_OK,
