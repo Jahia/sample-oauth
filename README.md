@@ -102,7 +102,7 @@
     * Create a default view
         * Include your Angular Controller
         ```html
-        <template:addResources type="javascript" resources="auth/keycloak-controller.js"/>
+        <template:addResources type="javascript" resources="auth/keycloak-connector-controller.js"/>
 
         <md-card ng-controller="KeycloakController as keycloak">
         ```
@@ -152,7 +152,7 @@
     ```html
     <template:addResources type="javascript" resources="i18n/sample-oauth-i18n_${currentResource.locale}.js" var="i18nJSFile"/>
     <c:if test="${empty i18nJSFile}">
-        <template:addResources type="javascript" resources="i18n/sample-oauth-i18n_en.js"/>
+        <template:addResources type="javascript" resources="i18n/sample-oauth-i18n.js"/>
     </c:if>
     ```
 

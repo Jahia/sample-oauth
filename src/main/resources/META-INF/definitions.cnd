@@ -25,6 +25,10 @@
 
 [soauthnt:oktaOAuthView] > jnt:content, joamix:oauthConnectorView
 
+[soauthnt:oktaOAuthMapperView] > jnt:content, joamix:oauthMapperView
+
+[soauthnt:oktaOAuthMapperSettings] > joamix:oauthMapperSettings
+
 [soauthnt:oktaButton] > jnt:content, joamix:oauthButtonConnector
 
 [soauthnt:oktaOAuthSettings] > joamix:oauthConnectorSettings

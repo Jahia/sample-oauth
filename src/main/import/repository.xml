@@ -52,6 +52,13 @@
                   <oktaoauthview jcr:primaryType="soauthnt:oktaOAuthView"/>
                </pagecontent>
             </okta-oauth-view>
+            <okta-oauth-mapper-view j:defaultTemplate="false"
+                                        j:hiddenTemplate="true"
+                                        jcr:primaryType="jnt:contentTemplate">
+               <pagecontent jcr:primaryType="jnt:contentList">
+                  <oktaoauthmapperview jcr:primaryType="soauthnt:oktaOAuthMapperView"/>
+               </pagecontent>
+            </okta-oauth-mapper-view>
          </templates>
       </sample-oauth>
    </modules>

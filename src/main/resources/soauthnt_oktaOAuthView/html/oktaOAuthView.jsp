@@ -17,7 +17,7 @@
 <c:if test="${empty i18nJSFile}">
     <template:addResources type="javascript" resources="i18n/sample-oauth-i18n.js"/>
 </c:if>
-<template:addResources type="javascript" resources="auth/okta-controller.js"/>
+<template:addResources type="javascript" resources="auth/okta-connector-controller.js"/>
 
 <md-card ng-controller="OktaController as okta">
     <div layout="row">

@@ -12,6 +12,7 @@ import org.jahia.services.content.JCRTemplate;
 import org.jahia.services.render.RenderContext;
 import org.jahia.services.render.Resource;
 import org.jahia.services.render.URLResolver;
+import org.jahia.services.usermanager.JahiaGroupManagerService;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -46,6 +47,8 @@ public class OktaCallbackAction extends Action {
     private void setOktaConnectorImpl(OktaConnectorImpl oktaConnectorImpl) {
         this.oktaConnectorImpl = oktaConnectorImpl;
     }
+
+    private JahiaGroupManagerService jahiaGroupManagerService;
 
     @Activate
     public void onActivate() {

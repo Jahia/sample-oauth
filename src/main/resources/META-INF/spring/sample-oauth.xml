@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
+
+    <osgi:reference id="jahiaOAuthService" interface="org.jahia.modules.jahiaoauth.service.JahiaOAuthService"
+                    availability="mandatory"/>
+    <osgi:reference id="jahiaOAuthCacheService" interface="org.jahia.modules.jahiaoauth.service.JahiaOAuthCacheService"
+                    availability="mandatory"/>
+
+    <bean class="org.foo.modules.sampleoauth.valves.OktaOAuthValve">
+        <property name="position" value="0"/>
+        <property name="cookieAuthConfig" ref="cookieAuthConfig"/>
+        <property name="jahiaUserManagerService" ref="JahiaUserManagerService"/>
+        <property name="jahiaOAuthCacheService" ref="jahiaOAuthCacheService"/>
+        <property name="jahiaOAuthService" ref="jahiaOAuthService"/>
+    </bean>
+</beans>
