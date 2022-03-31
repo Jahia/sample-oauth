@@ -1,6 +1,6 @@
 package org.foo.modules.sampleoauth.connectors;
 
-import org.foo.modules.sampleoauth.api.KeycloakApi20;
+import com.github.scribejava.apis.KeycloakApi;
 import org.jahia.modules.jahiaauth.service.ConnectorConfig;
 import org.jahia.modules.jahiaauth.service.ConnectorPropertyInfo;
 import org.jahia.modules.jahiaauth.service.ConnectorService;
@@ -13,6 +13,7 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Component(service = {KeycloakConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class}, property = {JahiaAuthConstants.CONNECTOR_SERVICE_NAME + "=" + KeycloakConnectorImpl.KEY}, immediate = true)
@@ -20,7 +21,7 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
     public static final String KEY = "KeycloakApi20";
     private static final String REALM = "realm";
     private static final String BASEURL = "baseUrl";
-    private static final String PROTECTED_RESOURCE_URL = "%s/realms/%s/protocol/openid-connect/userinfo";
+    private static final String PROTECTED_RESOURCE_URL = "%s/auth/realms/%s/protocol/openid-connect/userinfo";
 
     private JahiaOAuthService jahiaOAuthService;
 
@@ -31,7 +32,7 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
 
     @Activate
     private void onActivate() {
-        jahiaOAuthService.addOAuthDefaultApi20(KEY, KeycloakApi20.instance());
+        jahiaOAuthService.addOAuthDefaultApi20(KEY, KeycloakApi.instance());
     }
 
     @Deactivate
@@ -61,6 +62,6 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
 
     @Override
     public void validateSettings(ConnectorConfig connectorConfig) {
-        jahiaOAuthService.addOAuthDefaultApi20(KEY, KeycloakApi20.instance(connectorConfig.getProperty(BASEURL), connectorConfig.getProperty(REALM)));
+        jahiaOAuthService.addOAuthDefaultApi20(KEY, KeycloakApi.instance(connectorConfig.getProperty(BASEURL), connectorConfig.getProperty(REALM)));
     }
 }
