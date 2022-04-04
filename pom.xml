@@ -49,11 +49,11 @@
     <parent>
         <groupId>org.jahia.modules</groupId>
         <artifactId>jahia-modules</artifactId>
-        <version>8.0.2.0</version>
+        <version>8.1.0.0</version>
     </parent>
     <groupId>org.foo.modules</groupId>
     <artifactId>sample-oauth</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>sample-oauth</name>
     <description>This is the custom module (sample-oauth) for running on a Jahia server.</description>
