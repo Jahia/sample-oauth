@@ -2,6 +2,7 @@ package org.foo.modules.sampleoauth.connectors;
 
 import com.github.scribejava.apis.KeycloakApi;
 import org.jahia.modules.jahiaauth.service.*;
+import org.jahia.modules.jahiaoauth.service.JahiaOAuthConstants;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
 import org.jahia.modules.jahiaoauth.service.OAuthConnectorService;
 import org.osgi.framework.InvalidSyntaxException;
@@ -77,8 +78,8 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
         return String.format(PROTECTED_RESOURCE_URL, connectorConfig.getProperty(BASEURL), connectorConfig.getProperty(REALM));
     }
 
-    private static ConnectorPropertyInfo getUserInfo(String name, String valueType, String finalName) {
-        ConnectorPropertyInfo connectorPropertyInfo = new ConnectorPropertyInfo(name, valueType);
+    private static ConnectorPropertyInfo getUserInfo(String name, String finalName) {
+        ConnectorPropertyInfo connectorPropertyInfo = new ConnectorPropertyInfo(name, "string");
         connectorPropertyInfo.setPropertyToRequest(finalName);
         return connectorPropertyInfo;
     }
@@ -86,9 +87,10 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
     @Override
     public List<ConnectorPropertyInfo> getAvailableProperties() {
         return Arrays.asList(
-                getUserInfo("username", "string", "preferred_username"),
-                getUserInfo("firstname", "string", "given_name"),
-                getUserInfo("lastname", "string", "family_name")
+                getUserInfo("username", "preferred_username"),
+                getUserInfo("firstname", "given_name"),
+                getUserInfo("lastname", "family_name"),
+                new ConnectorPropertyInfo(JahiaOAuthConstants.TOKEN_DATA, "string")
         );
     }
 
