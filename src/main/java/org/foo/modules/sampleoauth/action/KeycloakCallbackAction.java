@@ -60,10 +60,10 @@ public class KeycloakCallbackAction extends Action {
             try {
                 jahiaOAuthService.extractAccessTokenAndExecuteMappers(settingsService.getConnectorConfig(JahiaSitesService.SYSTEM_SITE_KEY, KeycloakConnectorImpl.KEY), token, httpServletRequest.getRequestedSessionId());
                 String returnUrl = (String) httpServletRequest.getSession().getAttribute(CustomLoginLogoutUrlProvider.SESSION_REQUEST_URI);
-                if (returnUrl != null) {
-                    return new ActionResult(HttpServletResponse.SC_OK, returnUrl + "?site=", true, null);
+                if (returnUrl == null) {
+                    returnUrl = renderContext.getSite().getHome().getUrl();
                 }
-                return new ActionResult(HttpServletResponse.SC_OK, renderContext.getSite().getHome().getPath());
+                return new ActionResult(HttpServletResponse.SC_OK, returnUrl + "?site=", true, null);
             } catch (Exception e) {
                 logger.error("", e);
             }

@@ -26,8 +26,8 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
     private static final Logger logger = LoggerFactory.getLogger(KeycloakConnectorImpl.class);
 
     public static final String KEY = "KeycloakApi20";
-    private static final String REALM = "realm";
-    private static final String BASEURL = "baseUrl";
+    public static final String REALM = "realm";
+    public static final String BASEURL = "baseUrl";
     private static final String PROTECTED_RESOURCE_URL = "%s/auth/realms/%s/protocol/openid-connect/userinfo";
 
     private JahiaOAuthService jahiaOAuthService;
