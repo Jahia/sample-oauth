@@ -5,6 +5,7 @@ import org.jahia.modules.jahiaauth.service.*;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthConstants;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
 import org.jahia.modules.jahiaoauth.service.OAuthConnectorService;
+import org.jahia.services.sites.JahiaSitesService;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
@@ -55,7 +56,7 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
             Configuration[] configurations = this.configurationAdmin.listConfigurations("(service.factoryPid=org.jahia.modules.auth)");
             if (configurations != null) {
                 Arrays.stream(configurations)
-                        .map(configuration -> settingsService.getConnectorConfig((String) configuration.getProperties().get("siteKey"), KEY))
+                        .map(configuration -> settingsService.getConnectorConfig(JahiaSitesService.SYSTEM_SITE_KEY, KEY))
                         .filter(Objects::nonNull).findAny()
                         .ifPresent(this::validateSettings);
             }
@@ -90,7 +91,8 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
                 getUserInfo("username", "preferred_username"),
                 getUserInfo("firstname", "given_name"),
                 getUserInfo("lastname", "family_name"),
-                new ConnectorPropertyInfo(JahiaOAuthConstants.TOKEN_DATA, "string")
+                new ConnectorPropertyInfo(JahiaOAuthConstants.TOKEN_DATA, "string"),
+                new ConnectorPropertyInfo("group", "string")
         );
     }
 

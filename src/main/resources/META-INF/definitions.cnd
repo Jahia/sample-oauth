@@ -17,3 +17,8 @@
 [soauthnt:salesforceOAuthView] > jnt:content, jmix:authConnectorSettingView
 
 [soauthnt:salesforceButton] > jnt:content, joamix:oauthButtonConnector
+
+[soauthnt:tokenDataMapperView] > jnt:content, jmix:authMapperSettingView
+
+[soauthnt:groupMapperView] > jnt:content, jmix:authMapperSettingView
+

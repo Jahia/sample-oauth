@@ -1,58 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content xmlns:j="http://www.jahia.org/jahia/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0">
-   <modules jcr:primaryType="jnt:modules">
-      <sample-oauth j:dependencies="default jahia-authentication jahia-oauth"
-                    j:modulePriority="0"
-                    j:moduleType="module"
-                    j:title="sample-oauth"
-                    jcr:primaryType="jnt:module">
-         <portlets jcr:primaryType="jnt:portletFolder"/>
-         <files jcr:primaryType="jnt:folder"/>
-         <contents jcr:primaryType="jnt:contentFolder"/>
-         <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">
+    <modules jcr:primaryType="jnt:modules">
+        <sample-oauth j:dependencies="default jahia-authentication jahia-oauth"
+                      j:modulePriority="0"
+                      j:moduleType="module"
+                      j:title="sample-oauth"
+                      jcr:primaryType="jnt:module">
+            <portlets jcr:primaryType="jnt:portletFolder"/>
             <files jcr:primaryType="jnt:folder"/>
             <contents jcr:primaryType="jnt:contentFolder"/>
-            <keycloak-oauth-view j:defaultTemplate="false"
-                                 j:hiddenTemplate="true"
-                                 j:invertCondition="false"
-                                 j:requireLoggedUser="false"
-                                 j:requirePrivilegedUser="false"
-                                 jcr:primaryType="jnt:contentTemplate">
-               <pagecontent jcr:primaryType="jnt:contentList">
-                  <keycloakoauthview jcr:primaryType="soauthnt:keycloakOAuthView"/>
-               </pagecontent>
-            </keycloak-oauth-view>
-            <strava-oauth-view j:defaultTemplate="false"
-                                 j:hiddenTemplate="true"
-                                 j:invertCondition="false"
-                                 j:requireLoggedUser="false"
-                                 j:requirePrivilegedUser="false"
-                                 jcr:primaryType="jnt:contentTemplate">
-               <pagecontent jcr:primaryType="jnt:contentList">
-                  <stravaoauthview jcr:primaryType="soauthnt:stravaOAuthView"/>
-               </pagecontent>
-            </strava-oauth-view>
-            <azuread-oauth-view j:defaultTemplate="false"
-                                 j:hiddenTemplate="true"
-                                 j:invertCondition="false"
-                                 j:requireLoggedUser="false"
-                                 j:requirePrivilegedUser="false"
-                                 jcr:primaryType="jnt:contentTemplate">
-               <pagecontent jcr:primaryType="jnt:contentList">
-                  <azureadoauthview jcr:primaryType="soauthnt:azureADOAuthView"/>
-               </pagecontent>
-            </azuread-oauth-view>
-            <salesforce-oauth-view j:defaultTemplate="false"
-                                j:hiddenTemplate="true"
-                                j:invertCondition="false"
-                                j:requireLoggedUser="false"
-                                j:requirePrivilegedUser="false"
-                                jcr:primaryType="jnt:contentTemplate">
-               <pagecontent jcr:primaryType="jnt:contentList">
-                  <salesforceoauthview jcr:primaryType="soauthnt:salesforceOAuthView"/>
-               </pagecontent>
-            </salesforce-oauth-view>
-         </templates>
-      </sample-oauth>
-   </modules>
+            <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">
+                <files jcr:primaryType="jnt:folder"/>
+                <contents jcr:primaryType="jnt:contentFolder"/>
+                <keycloak-oauth-view j:defaultTemplate="false"
+                                     j:hiddenTemplate="true"
+                                     j:invertCondition="false"
+                                     j:requireLoggedUser="false"
+                                     j:requirePrivilegedUser="false"
+                                     jcr:primaryType="jnt:contentTemplate">
+                    <pagecontent jcr:primaryType="jnt:contentList">
+                        <keycloakoauthview jcr:primaryType="soauthnt:keycloakOAuthView"/>
+                    </pagecontent>
+                </keycloak-oauth-view>
+                <strava-oauth-view j:defaultTemplate="false"
+                                   j:hiddenTemplate="true"
+                                   j:invertCondition="false"
+                                   j:requireLoggedUser="false"
+                                   j:requirePrivilegedUser="false"
+                                   jcr:primaryType="jnt:contentTemplate">
+                    <pagecontent jcr:primaryType="jnt:contentList">
+                        <stravaoauthview jcr:primaryType="soauthnt:stravaOAuthView"/>
+                    </pagecontent>
+                </strava-oauth-view>
+                <azuread-oauth-view j:defaultTemplate="false"
+                                    j:hiddenTemplate="true"
+                                    j:invertCondition="false"
+                                    j:requireLoggedUser="false"
+                                    j:requirePrivilegedUser="false"
+                                    jcr:primaryType="jnt:contentTemplate">
+                    <pagecontent jcr:primaryType="jnt:contentList">
+                        <azureadoauthview jcr:primaryType="soauthnt:azureADOAuthView"/>
+                    </pagecontent>
+                </azuread-oauth-view>
+                <salesforce-oauth-view j:defaultTemplate="false"
+                                       j:hiddenTemplate="true"
+                                       j:invertCondition="false"
+                                       j:requireLoggedUser="false"
+                                       j:requirePrivilegedUser="false"
+                                       jcr:primaryType="jnt:contentTemplate">
+                    <pagecontent jcr:primaryType="jnt:contentList">
+                        <salesforceoauthview jcr:primaryType="soauthnt:salesforceOAuthView"/>
+                    </pagecontent>
+                </salesforce-oauth-view>
+                <token-data-mapper-view j:defaultTemplate="false"
+                                        j:hiddenTemplate="true"
+                                        jcr:primaryType="jnt:contentTemplate">
+                    <pagecontent jcr:primaryType="jnt:contentList">
+                        <oktaoauthmapperview jcr:primaryType="soauthnt:tokenDataMapperView"/>
+                    </pagecontent>
+                </token-data-mapper-view>
+                <group-mapper-view j:defaultTemplate="false"
+                                   j:hiddenTemplate="true"
+                                   jcr:primaryType="jnt:contentTemplate">
+                    <pagecontent jcr:primaryType="jnt:contentList">
+                        <oktaoauthmapperview jcr:primaryType="soauthnt:groupMapperView"/>
+                    </pagecontent>
+                </group-mapper-view>
+            </templates>
+        </sample-oauth>
+    </modules>
 </content>
