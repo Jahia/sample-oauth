@@ -21,7 +21,7 @@
                 Keycloak({
                     url: '${requestScope['auth.url']}/auth',
                     realm: '${requestScope['auth.realm']}',
-                    clientId: 'account'
+                    clientId: '${requestScope['auth.clientId']}'
                 }).init({onLoad: 'check-sso', checkLoginIframe: false})
                     .then(authenticated => {
                         if (authenticated) {
