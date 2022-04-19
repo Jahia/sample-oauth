@@ -1,6 +1,9 @@
 package org.foo.modules.sampleoauth.action;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpHeaders;
 import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
+import org.foo.modules.sampleoauth.utils.CustomLoginLogoutUrlProvider;
 import org.jahia.bin.Action;
 import org.jahia.bin.ActionResult;
 import org.jahia.modules.jahiaauth.service.SettingsService;
@@ -48,6 +51,11 @@ public class KeycloakConnectAction extends Action {
     @Override
     public ActionResult doExecute(HttpServletRequest httpServletRequest, RenderContext renderContext, Resource resource, JCRSessionWrapper session,
                                   Map<String, List<String>> parameters, URLResolver urlResolver) throws Exception {
+        String referer = httpServletRequest.getHeader(HttpHeaders.REFERER);
+        if (StringUtils.isNotBlank(referer)) {
+            httpServletRequest.getSession(false).setAttribute(CustomLoginLogoutUrlProvider.SESSION_REQUEST_URI, referer);
+        }
+
         JSONObject response = new JSONObject();
         response.put(JahiaOAuthConstants.AUTHORIZATION_URL,
                 jahiaOAuthService.getAuthorizationUrl(settingsService.getConnectorConfig(JahiaSitesService.SYSTEM_SITE_KEY, KeycloakConnectorImpl.KEY),
