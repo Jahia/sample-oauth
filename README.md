@@ -59,7 +59,46 @@ This module is not supported.
         @Component(service = {KeycloakConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class}, property = {JahiaAuthConstants.CONNECTOR_SERVICE_NAME + "=" + KeycloakConnectorImpl.KEY}, immediate = true)
         ```
         * Add the custom connector on activation
+
+            There is two ways to add connectors.
+            
+            Add an instance of the connector if it does not have custom property:
+            ```java
+            @Activate
+            private void onActivate() {
+                jahiaOAuthService.addOAuthDefaultApi20(KEY, StravaApi20.instance());
+            }
+            ```
+            
+            Or wrap the connector into a connector builder which will allow to manage custom properties and manage these properties per
+             site
+            ```java
+            public class AzureConnectorBuilder implements JahiaOAuthAPIBuilder {
+                private static final String TENANT_ID = "tenantID";
+                @Override
+                public DefaultApi20 build(ConnectorConfig connectorConfig) {
+                    return MicrosoftAzureActiveDirectory20Api.custom(connectorConfig.getProperty(TENANT_ID));
+                }        
+            }
+            ```
+          The connector builder have a `build` method where it's possible to instantiate dynamically a custom connector with the per site
+           configuration. The `build` method will be called automatically when the connector will be required.
+           
+           Then you simply have to add the connector builder into the list of available connectors.
+            ```java
+            @Activate
+            private void onActivate() {
+                jahiaOAuthService.addOAuthDefaultApi20(KEY, new AzureConnectorBuilder());
+            }
+            ```
         * Remove the custom connector on deactivation
+        ```java
+            @Deactivate
+            private void onDeactivate() {
+              jahiaOAuthService.removeOAuthDefaultApi20(KEY);
+            }
+        ```
+        
         * Specifiy the protetedResourceURL (URL to get the user info)
         * Specify the properties in the JSON result to enable OAuth Data Mapping
     * Implement 2 Jahia Actions
