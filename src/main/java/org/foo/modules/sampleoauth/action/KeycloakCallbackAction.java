@@ -63,6 +63,7 @@ public class KeycloakCallbackAction extends Action {
                 if (returnUrl == null) {
                     returnUrl = renderContext.getSite().getHome().getUrl();
                 }
+                // WARN: site query param is mandatory for the SSOValve in jahia-authentication module
                 return new ActionResult(HttpServletResponse.SC_OK, returnUrl + "?site=", true, null);
             } catch (Exception e) {
                 logger.error("", e);

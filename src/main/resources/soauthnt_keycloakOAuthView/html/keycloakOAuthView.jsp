@@ -46,6 +46,16 @@
 
             <div layout="row">
                 <md-input-container flex>
+                    <label message-key="soauthnt_keycloakOAuthView.label.realm"></label>
+                    <input type="text" ng-model="keycloak.realm" name="realm" required/>
+                    <div ng-messages="keycloakForm.realm.$error" role="alert">
+                        <div ng-message="required" message-key="soauthnt_keycloakOAuthView.error.realm.required"></div>
+                    </div>
+                </md-input-container>
+
+                <div flex="5"></div>
+
+                <md-input-container flex>
                     <label message-key="label.apiKey"></label>
                     <input type="text" ng-model="keycloak.apiKey" name="apiKey" required/>
                     <div ng-messages="keycloakForm.apiKey.$error" role="alert">
@@ -56,32 +66,12 @@
                 <div flex="5"></div>
 
                 <md-input-container flex>
-                    <label message-key="label.apiSecret"></label>
-                    <input type="text" ng-model="keycloak.apiSecret" name="apiSecret" required/>
-                    <div ng-messages="keycloakForm.apiSecret.$error" role="alert">
-                        <div ng-message="required" message-key="error.apiSecret.required"></div>
-                    </div>
-                </md-input-container>
-            </div>
-
-            <div layout="row">
-                <md-input-container flex>
                     <label message-key="label.scope"></label>
-                    <input type="text" ng-model="keycloak.scope" name="scope"/>
+                    <input type="text" ng-model="keycloak.scope" name="scope" required/>
                     <div class="hint" ng-show="!keycloakForm.scope.$invalid"
                          message-key="hint.scope"></div>
                     <div ng-messages="keycloakForm.scope.$error" role="alert">
                         <div ng-message="required" message-key="error.scope.required"></div>
-                    </div>
-                </md-input-container>
-
-                <div flex="5"></div>
-
-                <md-input-container flex>
-                    <label message-key="soauthnt_keycloakOAuthView.label.realm"></label>
-                    <input type="text" ng-model="keycloak.realm" name="realm"/>
-                    <div ng-messages="keycloakForm.realm.$error" role="alert">
-                        <div ng-message="required" message-key="soauthnt_keycloakOAuthView.error.realm.required"></div>
                     </div>
                 </md-input-container>
             </div>
@@ -89,10 +79,11 @@
             <div layout="row">
                 <md-input-container class="md-block" flex>
                     <label message-key="soauthnt_keycloakOAuthView.label.baseUrl"></label>
-                    <input type="url" ng-model="keycloak.baseUrl" name="baseUrl"/>
+                    <input type="url" ng-model="keycloak.baseUrl" name="baseUrl" required/>
                     <div ng-messages="keycloakForm.baseUrl.$error" ng-show="keycloakForm.baseUrl.$invalid"
                          role="alert">
                         <div ng-message="url" message-key="error.notAValidURL"></div>
+                        <div ng-message="required" message-key="soauthnt_keycloakOAuthView.error.baseUrl.required"></div>
                     </div>
                 </md-input-container>
             </div>
@@ -100,12 +91,13 @@
             <div layout="row">
                 <md-input-container class="md-block" flex>
                     <label message-key="label.callbackURL"></label>
-                    <input type="url" ng-model="keycloak.callbackUrl" name="callbackUrl"/>
+                    <input type="url" ng-model="keycloak.callbackUrl" name="callbackUrl" required/>
                     <div class="hint" ng-show="keycloakForm.callbackUrl.$valid"
                          message-key="soauthnt_keycloakOAuthView.hint.callbackURL"></div>
                     <div ng-messages="keycloakForm.callbackUrl.$error" ng-show="keycloakForm.callbackUrl.$invalid"
                          role="alert">
                         <div ng-message="url" message-key="error.notAValidURL"></div>
+                        <div ng-message="required" message-key="soauthnt_keycloakOAuthView.error.callbackUrl.required"></div>
                     </div>
                 </md-input-container>
             </div>

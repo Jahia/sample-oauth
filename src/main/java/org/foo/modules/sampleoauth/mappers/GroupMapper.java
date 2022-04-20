@@ -1,5 +1,6 @@
 package org.foo.modules.sampleoauth.mappers;
 
+import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
 import org.jahia.api.usermanager.JahiaUserManagerService;
 import org.jahia.modules.jahiaauth.service.*;
 import org.jahia.services.content.JCRTemplate;
@@ -15,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -47,7 +48,9 @@ public class GroupMapper implements Mapper {
 
     @Override
     public List<MappedPropertyInfo> getProperties() {
-        return Collections.singletonList(new MappedPropertyInfo("group", "string", null, true));
+        return Arrays.asList(
+                new MappedPropertyInfo(JahiaAuthConstants.SSO_LOGIN, "string", null, true),
+                new MappedPropertyInfo(KeycloakConnectorImpl.GROUPS, "string", null, true));
     }
 
     @Override
@@ -70,8 +73,8 @@ public class GroupMapper implements Mapper {
                     updateUserProperty(userNode, "lastname", "j:lastName", mapperResult);
                     updateUserProperty(userNode, "email", "j:email", mapperResult);
 
-                    if (mapperResult.containsKey("groups")) {
-                        manageUserGroups(userNode, (JSONArray) mapperResult.get("groups").getValue());
+                    if (mapperResult.containsKey(KeycloakConnectorImpl.GROUPS)) {
+                        manageUserGroups(userNode, (String) mapperResult.get(KeycloakConnectorImpl.GROUPS).getValue());
                     }
 
                     systemSession.save();
@@ -105,15 +108,20 @@ public class GroupMapper implements Mapper {
         }
     }
 
-    private void manageUserGroups(JCRUserNode userNode, JSONArray groups) throws RepositoryException {
+    private void manageUserGroups(JCRUserNode userNode, String groups) throws RepositoryException {
         if (groups != null) {
-            int nbGroups = groups.length();
-            for (int i = 0; i < nbGroups; i++) {
-                try {
-                    manageUserGroup(userNode, groups.getString(i));
-                } catch (JSONException e) {
-                    logger.error("Unable to get group in json {}", groups);
+            try {
+                JSONArray groupsJSON = new JSONArray(groups);
+                int nbGroups = groupsJSON.length();
+                for (int i = 0; i < nbGroups; i++) {
+                    try {
+                        manageUserGroup(userNode, groupsJSON.getString(i));
+                    } catch (JSONException e) {
+                        logger.error("Unable to get group in JSON {} at index {}", groups, i);
+                    }
                 }
+            } catch (JSONException e) {
+                logger.warn("Unable to parse JSON Groups: {}", groups);
             }
         }
     }

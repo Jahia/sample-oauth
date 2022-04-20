@@ -29,6 +29,7 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
     public static final String REALM = "realm";
     public static final String BASEURL = "baseUrl";
     private static final String PROTECTED_RESOURCE_URL = "%s/auth/realms/%s/protocol/openid-connect/userinfo";
+    public static final String GROUPS = "groups";
 
     private JahiaOAuthService jahiaOAuthService;
     private SettingsService settingsService;
@@ -89,10 +90,9 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
     public List<ConnectorPropertyInfo> getAvailableProperties() {
         return Arrays.asList(
                 getUserInfo("username", "preferred_username"),
-                getUserInfo("firstname", "given_name"),
                 getUserInfo("lastname", "family_name"),
                 new ConnectorPropertyInfo(JahiaOAuthConstants.TOKEN_DATA, "string"),
-                new ConnectorPropertyInfo("group", "string")
+                new ConnectorPropertyInfo(GROUPS, "string")
         );
     }
 
