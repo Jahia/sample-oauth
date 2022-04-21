@@ -65,13 +65,9 @@ public class GroupMapper implements Mapper {
                         if (userNode == null) {
                             throw new RuntimeException("Cannot create user from access token");
                         }
-                        userNode.setProperty("preferredLanguage", "fr");
                     } else {
                         removeUserMembership(userNode);
                     }
-                    updateUserProperty(userNode, "firstname", "j:firstName", mapperResult);
-                    updateUserProperty(userNode, "lastname", "j:lastName", mapperResult);
-                    updateUserProperty(userNode, "email", "j:email", mapperResult);
 
                     if (mapperResult.containsKey(KeycloakConnectorImpl.GROUPS)) {
                         manageUserGroups(userNode, (String) mapperResult.get(KeycloakConnectorImpl.GROUPS).getValue());
@@ -97,25 +93,22 @@ public class GroupMapper implements Mapper {
         });
     }
 
-    private static void updateUserProperty(JCRUserNode userNode, String property, String jcrProperty, Map<String, MappedProperty> mapperResult) {
-        try {
-            if (mapperResult.containsKey(property)) {
-                String value = (String) mapperResult.get(property).getValue();
-                userNode.setProperty(jcrProperty, value);
-            }
-        } catch (RepositoryException e) {
-            logger.error("", e);
-        }
-    }
-
     private void manageUserGroups(JCRUserNode userNode, String groups) throws RepositoryException {
         if (groups != null) {
             try {
                 JSONArray groupsJSON = new JSONArray(groups);
                 int nbGroups = groupsJSON.length();
+                String groupName;
+                JCRGroupNode group;
                 for (int i = 0; i < nbGroups; i++) {
                     try {
-                        manageUserGroup(userNode, groupsJSON.getString(i));
+                        groupName = groupsJSON.getString(i);
+                        group = jahiaGroupManagerService.lookupGroup(null, groupName);
+                        if (group == null) {
+                            group = jahiaGroupManagerService.createGroup(null, groupName, new Properties(), false, userNode.getSession());
+                        }
+                        group.addMember(userNode);
+                        group.saveSession();
                     } catch (JSONException e) {
                         logger.error("Unable to get group in JSON {} at index {}", groups, i);
                     }
@@ -124,14 +117,5 @@ public class GroupMapper implements Mapper {
                 logger.warn("Unable to parse JSON Groups: {}", groups);
             }
         }
-    }
-
-    private void manageUserGroup(JCRUserNode userNode, String groupName) throws RepositoryException {
-        JCRGroupNode group = jahiaGroupManagerService.lookupGroup(null, groupName);
-        if (group == null) {
-            group = jahiaGroupManagerService.createGroup(null, groupName, new Properties(), false, userNode.getSession());
-        }
-        group.addMember(userNode);
-        group.saveSession();
     }
 }

@@ -62,12 +62,8 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
                         .ifPresent(this::validateSettings);
             }
         } catch (IOException | InvalidSyntaxException e) {
-            getError(e);
+            logger.error("", e);
         }
-    }
-
-    private void getError(Exception e) {
-        logger.error("", e);
     }
 
     @Deactivate
