@@ -15,7 +15,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(service = RenderFilter.class, immediate = true)
-public class AutoLoginFilter extends AbstractFilter {
+public class SilentLoginFilter extends AbstractFilter {
     private SettingsService settingsService;
 
     @Reference
@@ -23,8 +23,8 @@ public class AutoLoginFilter extends AbstractFilter {
         this.settingsService = settingsService;
     }
 
-    public AutoLoginFilter() {
-        setApplyOnNodeTypes("soauthnt:autoLogin");
+    public SilentLoginFilter() {
+        setApplyOnNodeTypes("soauthnt:silentLogin");
         setApplyOnModes(Constants.LIVE_WORKSPACE);
         setPriority(17.0f);
     }
