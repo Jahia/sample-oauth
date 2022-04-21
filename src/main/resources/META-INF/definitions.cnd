@@ -22,5 +22,5 @@
 
 [soauthnt:groupMapperView] > jnt:content, jmix:authMapperSettingView
 
-[soauthnt:autoLogin] > jnt:content, jmix:formContent
+[soauthnt:silentLogin] > jnt:content, jmix:formContent
 
