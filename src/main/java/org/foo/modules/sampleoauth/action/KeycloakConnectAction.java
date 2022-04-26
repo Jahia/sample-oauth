@@ -6,6 +6,7 @@ import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
 import org.foo.modules.sampleoauth.utils.CustomLoginLogoutUrlProvider;
 import org.jahia.bin.Action;
 import org.jahia.bin.ActionResult;
+import org.jahia.modules.jahiaauth.service.ConnectorConfig;
 import org.jahia.modules.jahiaauth.service.SettingsService;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthConstants;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
@@ -13,7 +14,6 @@ import org.jahia.services.content.JCRSessionWrapper;
 import org.jahia.services.render.RenderContext;
 import org.jahia.services.render.Resource;
 import org.jahia.services.render.URLResolver;
-import org.jahia.services.sites.JahiaSitesService;
 import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -31,6 +31,7 @@ public class KeycloakConnectAction extends Action {
 
     private JahiaOAuthService jahiaOAuthService;
     private SettingsService settingsService;
+    private KeycloakConnectorImpl keycloakConnector;
 
     @Reference(service = JahiaOAuthService.class)
     private void setJahiaOAuthService(JahiaOAuthService jahiaOAuthService) {
@@ -40,6 +41,11 @@ public class KeycloakConnectAction extends Action {
     @Reference(service = SettingsService.class)
     private void setSettingsService(SettingsService settingsService) {
         this.settingsService = settingsService;
+    }
+
+    @Reference
+    private void setKeycloakConnector(KeycloakConnectorImpl keycloakConnector) {
+        this.keycloakConnector = keycloakConnector;
     }
 
     public KeycloakConnectAction() {
@@ -56,10 +62,14 @@ public class KeycloakConnectAction extends Action {
             httpServletRequest.getSession(false).setAttribute(CustomLoginLogoutUrlProvider.SESSION_REQUEST_URI, referer);
         }
 
+        ConnectorConfig connectorConfig = settingsService.getConnectorConfig(renderContext.getSite().getSiteKey(), KeycloakConnectorImpl.KEY);
+        // Fix hack to refresh OAuth configuration
+        // TODO: Use https://github.com/Jahia/jahia-oauth/blob/master/src/main/java/org/jahia/modules/jahiaoauth/service/JahiaOAuthAPIBuilder.java
+        keycloakConnector.validateSettings(connectorConfig);
+
         JSONObject response = new JSONObject();
         response.put(JahiaOAuthConstants.AUTHORIZATION_URL,
-                jahiaOAuthService.getAuthorizationUrl(settingsService.getConnectorConfig(JahiaSitesService.SYSTEM_SITE_KEY, KeycloakConnectorImpl.KEY),
-                        httpServletRequest.getRequestedSessionId(), Collections.emptyMap()));
+                jahiaOAuthService.getAuthorizationUrl(connectorConfig, httpServletRequest.getRequestedSessionId(), Collections.emptyMap()));
         return new ActionResult(HttpServletResponse.SC_OK, null, response);
     }
 }

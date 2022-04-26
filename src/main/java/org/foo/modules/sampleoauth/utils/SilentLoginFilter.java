@@ -10,7 +10,6 @@ import org.jahia.services.render.Resource;
 import org.jahia.services.render.filter.AbstractFilter;
 import org.jahia.services.render.filter.RenderChain;
 import org.jahia.services.render.filter.RenderFilter;
-import org.jahia.services.sites.JahiaSitesService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -30,8 +29,8 @@ public class SilentLoginFilter extends AbstractFilter {
     }
 
     @Override
-    public String prepare(RenderContext renderContext, Resource resource, RenderChain chain) throws Exception {
-        ConnectorConfig connectorConfig = settingsService.getConnectorConfig(JahiaSitesService.SYSTEM_SITE_KEY, KeycloakConnectorImpl.KEY);
+    public String prepare(RenderContext renderContext, Resource resource, RenderChain chain) {
+        ConnectorConfig connectorConfig = settingsService.getConnectorConfig(renderContext.getSite().getSiteKey(), KeycloakConnectorImpl.KEY);
         renderContext.getRequest().setAttribute("auth.url", connectorConfig.getProperty(KeycloakConnectorImpl.BASEURL));
         renderContext.getRequest().setAttribute("auth.realm", connectorConfig.getProperty(KeycloakConnectorImpl.REALM));
         renderContext.getRequest().setAttribute("auth.clientId", connectorConfig.getProperty(JahiaOAuthConstants.PROPERTY_API_KEY));

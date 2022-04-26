@@ -1,25 +1,21 @@
 package org.foo.modules.sampleoauth.connectors;
 
 import com.github.scribejava.apis.KeycloakApi;
-import org.jahia.modules.jahiaauth.service.*;
+import org.jahia.modules.jahiaauth.service.ConnectorConfig;
+import org.jahia.modules.jahiaauth.service.ConnectorPropertyInfo;
+import org.jahia.modules.jahiaauth.service.ConnectorService;
+import org.jahia.modules.jahiaauth.service.JahiaAuthConstants;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthConstants;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
 import org.jahia.modules.jahiaoauth.service.OAuthConnectorService;
-import org.jahia.services.sites.JahiaSitesService;
-import org.osgi.framework.InvalidSyntaxException;
-import org.osgi.service.cm.Configuration;
-import org.osgi.service.cm.ConfigurationAdmin;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 @Component(service = {KeycloakConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class}, property = {JahiaAuthConstants.CONNECTOR_SERVICE_NAME + "=" + KeycloakConnectorImpl.KEY}, immediate = true)
 public class KeycloakConnectorImpl implements OAuthConnectorService {
@@ -32,38 +28,10 @@ public class KeycloakConnectorImpl implements OAuthConnectorService {
     public static final String GROUPS = "groups";
 
     private JahiaOAuthService jahiaOAuthService;
-    private SettingsService settingsService;
-    private ConfigurationAdmin configurationAdmin;
 
     @Reference(service = JahiaOAuthService.class)
     private void setJahiaOAuthService(JahiaOAuthService jahiaOAuthService) {
         this.jahiaOAuthService = jahiaOAuthService;
-    }
-
-    @Reference
-    private void setSettingsService(SettingsService settingsService) {
-        this.settingsService = settingsService;
-    }
-
-    @Reference(service = ConfigurationAdmin.class, name = "configurationAdmin")
-    private void setConfigurationAdmin(ConfigurationAdmin configurationAdmin) {
-        this.configurationAdmin = configurationAdmin;
-    }
-
-    @Activate
-    private void onActivate() {
-        jahiaOAuthService.addOAuthDefaultApi20(KEY, KeycloakApi.instance());
-        try {
-            Configuration[] configurations = this.configurationAdmin.listConfigurations("(service.factoryPid=org.jahia.modules.auth)");
-            if (configurations != null) {
-                Arrays.stream(configurations)
-                        .map(configuration -> settingsService.getConnectorConfig(JahiaSitesService.SYSTEM_SITE_KEY, KEY))
-                        .filter(Objects::nonNull).findAny()
-                        .ifPresent(this::validateSettings);
-            }
-        } catch (IOException | InvalidSyntaxException e) {
-            logger.error("", e);
-        }
     }
 
     @Deactivate

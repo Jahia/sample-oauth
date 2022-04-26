@@ -11,7 +11,6 @@ import org.jahia.services.content.JCRSessionWrapper;
 import org.jahia.services.render.RenderContext;
 import org.jahia.services.render.Resource;
 import org.jahia.services.render.URLResolver;
-import org.jahia.services.sites.JahiaSitesService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -58,7 +57,7 @@ public class KeycloakCallbackAction extends Action {
             }
 
             try {
-                jahiaOAuthService.extractAccessTokenAndExecuteMappers(settingsService.getConnectorConfig(JahiaSitesService.SYSTEM_SITE_KEY, KeycloakConnectorImpl.KEY), token, httpServletRequest.getRequestedSessionId());
+                jahiaOAuthService.extractAccessTokenAndExecuteMappers(settingsService.getConnectorConfig(renderContext.getSite().getSiteKey(), KeycloakConnectorImpl.KEY), token, httpServletRequest.getRequestedSessionId());
                 String returnUrl = (String) httpServletRequest.getSession().getAttribute(CustomLoginLogoutUrlProvider.SESSION_REQUEST_URI);
                 if (returnUrl == null || StringUtils.endsWith(returnUrl, "/start")) {
                     returnUrl = renderContext.getSite().getHome().getUrl();
