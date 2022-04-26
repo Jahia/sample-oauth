@@ -60,7 +60,7 @@ public class KeycloakCallbackAction extends Action {
             try {
                 jahiaOAuthService.extractAccessTokenAndExecuteMappers(settingsService.getConnectorConfig(JahiaSitesService.SYSTEM_SITE_KEY, KeycloakConnectorImpl.KEY), token, httpServletRequest.getRequestedSessionId());
                 String returnUrl = (String) httpServletRequest.getSession().getAttribute(CustomLoginLogoutUrlProvider.SESSION_REQUEST_URI);
-                if (returnUrl == null) {
+                if (returnUrl == null || StringUtils.endsWith(returnUrl, "/start")) {
                     returnUrl = renderContext.getSite().getHome().getUrl();
                 }
                 // WARN: site query param is mandatory for the SSOValve in jahia-authentication module
