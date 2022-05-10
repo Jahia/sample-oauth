@@ -17,7 +17,7 @@
 <%--@elvariable id="currentResource" type="org.jahia.services.render.Resource"--%>
 <%--@elvariable id="url" type="org.jahia.services.render.URLGenerator"--%>
 <template:addResources type="javascript" var="i18nJSFile"
-                       resources="i18n/${script.view.module.bundle.symbolicName}-i18n_${currentResource.locale}.js"/>
+                       resources="i18n/${script.view.module.bundle.symbolicName}-i18n_${renderContext.UILocale}.js"/>
 <c:if test="${empty i18nJSFile}">
     <template:addResources type="javascript" resources="i18n/${script.view.module.bundle.symbolicName}-i18n.js"/>
 </c:if>

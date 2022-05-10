@@ -12,7 +12,7 @@
 <%--@elvariable id="renderContext" type="org.jahia.services.render.RenderContext"--%>
 <%--@elvariable id="currentResource" type="org.jahia.services.render.Resource"--%>
 <%--@elvariable id="url" type="org.jahia.services.render.URLGenerator"--%>
-<template:addResources type="javascript" resources="i18n/sample-oauth-i18n_${currentResource.locale}.js"
+<template:addResources type="javascript" resources="i18n/sample-oauth-i18n_${renderContext.UILocale}.js"
                        var="i18nJSFile"/>
 <c:if test="${empty i18nJSFile}">
     <template:addResources type="javascript" resources="i18n/sample-oauth-i18n_en.js"/>
