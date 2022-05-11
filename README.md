@@ -191,7 +191,7 @@ This module is not supported.
 
     * Update your default view for the site component
     ```html
-    <template:addResources type="javascript" resources="i18n/sample-oauth-i18n_${currentResource.locale}.js" var="i18nJSFile"/>
+    <template:addResources type="javascript" resources="i18n/sample-oauth-i18n_${renderContext.UILocale}.js" var="i18nJSFile"/>
     <c:if test="${empty i18nJSFile}">
         <template:addResources type="javascript" resources="i18n/sample-oauth-i18n_en.js"/>
     </c:if>
