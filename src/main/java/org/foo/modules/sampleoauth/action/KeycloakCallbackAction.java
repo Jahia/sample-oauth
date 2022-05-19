@@ -2,10 +2,13 @@ package org.foo.modules.sampleoauth.action;
 
 import org.apache.commons.lang.StringUtils;
 import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
+import org.foo.modules.sampleoauth.connectors.TokenDataResultProcessor;
 import org.foo.modules.sampleoauth.utils.CustomLoginLogoutUrlProvider;
 import org.jahia.bin.Action;
 import org.jahia.bin.ActionResult;
+import org.jahia.modules.jahiaauth.service.JahiaAuthMapperService;
 import org.jahia.modules.jahiaauth.service.SettingsService;
+import org.jahia.modules.jahiaoauth.service.JahiaOAuthConstants;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
 import org.jahia.services.content.JCRSessionWrapper;
 import org.jahia.services.render.RenderContext;
@@ -29,11 +32,17 @@ public class KeycloakCallbackAction extends Action {
     private static final String NAME = "keycloakOAuthCallbackAction";
 
     private JahiaOAuthService jahiaOAuthService;
+    private JahiaAuthMapperService jahiaAuthMapperService;
     private SettingsService settingsService;
 
     @Reference
     private void setJahiaOAuthService(JahiaOAuthService jahiaOAuthService) {
         this.jahiaOAuthService = jahiaOAuthService;
+    }
+
+    @Reference
+    private void setJahiaAuthMapperService(JahiaAuthMapperService jahiaAuthMapperService) {
+        this.jahiaAuthMapperService = jahiaAuthMapperService;
     }
 
     @Reference
@@ -58,6 +67,9 @@ public class KeycloakCallbackAction extends Action {
 
             try {
                 jahiaOAuthService.extractAccessTokenAndExecuteMappers(settingsService.getConnectorConfig(renderContext.getSite().getSiteKey(), KeycloakConnectorImpl.KEY), token, httpServletRequest.getRequestedSessionId());
+                logger.info("Token Data: {}", jahiaAuthMapperService.getMapperResultsForSession(httpServletRequest.getRequestedSessionId())
+                        .get(TokenDataResultProcessor.MAPPER_NAME)
+                        .get(JahiaOAuthConstants.TOKEN_DATA).getValue());
                 String returnUrl = (String) httpServletRequest.getSession().getAttribute(CustomLoginLogoutUrlProvider.SESSION_REQUEST_URI);
                 if (returnUrl == null || StringUtils.endsWith(returnUrl, "/start")) {
                     returnUrl = renderContext.getSite().getHome().getUrl();
