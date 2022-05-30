@@ -1,7 +1,8 @@
 package org.foo.modules.sampleoauth.action;
 
-import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
+import org.foo.modules.sampleoauth.connectors.GitlabConnectorImpl;
 import org.jahia.bin.Action;
+import org.jahia.modules.jahiaauth.service.JahiaAuthMapperService;
 import org.jahia.modules.jahiaauth.service.SettingsService;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
 import org.osgi.service.component.annotations.Activate;
@@ -9,16 +10,22 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(service = Action.class, immediate = true)
-public class KeycloakConnectAction extends AbstractConnectAction {
+public class GitlabCallbackAction extends AbstractCallbackAction {
     private JahiaOAuthService jahiaOAuthService;
+    private JahiaAuthMapperService jahiaAuthMapperService;
     private SettingsService settingsService;
 
-    @Reference(service = JahiaOAuthService.class)
+    @Reference
     private void refJahiaOAuthService(JahiaOAuthService jahiaOAuthService) {
         this.jahiaOAuthService = jahiaOAuthService;
     }
 
-    @Reference(service = SettingsService.class)
+    @Reference
+    private void refJahiaAuthMapperService(JahiaAuthMapperService jahiaAuthMapperService) {
+        this.jahiaAuthMapperService = jahiaAuthMapperService;
+    }
+
+    @Reference
     private void refSettingsService(SettingsService settingsService) {
         this.settingsService = settingsService;
     }
@@ -26,16 +33,17 @@ public class KeycloakConnectAction extends AbstractConnectAction {
     @Activate
     private void onActivate() {
         setJahiaOAuthService(jahiaOAuthService);
+        setJahiaAuthMapperService(jahiaAuthMapperService);
         setSettingsService(settingsService);
     }
 
     @Override
     protected String getActionName() {
-        return "connectToKeycloakApi20Action";
+        return "gitlabOAuthCallbackAction";
     }
 
     @Override
     protected String getConnectorService() {
-        return KeycloakConnectorImpl.KEY;
+        return GitlabConnectorImpl.KEY;
     }
 }

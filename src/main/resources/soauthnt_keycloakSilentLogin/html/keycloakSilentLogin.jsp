@@ -13,7 +13,7 @@
 <%--@elvariable id="currentResource" type="org.jahia.services.render.Resource"--%>
 <%--@elvariable id="url" type="org.jahia.services.render.URLGenerator"--%>
 <c:if test="${renderContext.editMode}">${currentNode.identifier}</c:if>
-<c:if test="${not renderContext.editMode && !renderContext.loggedIn}">
+<c:if test="${renderContext.liveMode && !renderContext.loggedIn}">
     <template:addResources type="javascript" resources="${requestScope['auth.url']}/auth/js/keycloak.js"/>
     <template:addResources type="inlinejavascript">
         <script>

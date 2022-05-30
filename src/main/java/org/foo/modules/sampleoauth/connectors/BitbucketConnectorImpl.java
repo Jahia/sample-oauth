@@ -1,6 +1,7 @@
 package org.foo.modules.sampleoauth.connectors;
 
-import org.foo.modules.sampleoauth.api.StravaApi20;
+import org.foo.modules.sampleoauth.api.BitbucketApi20;
+import org.foo.modules.sampleoauth.api.GitlabApi20;
 import org.jahia.modules.jahiaauth.service.ConnectorConfig;
 import org.jahia.modules.jahiaauth.service.ConnectorPropertyInfo;
 import org.jahia.modules.jahiaauth.service.ConnectorService;
@@ -12,13 +13,12 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-@Component(service = {StravaConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class}, property = {JahiaAuthConstants.CONNECTOR_SERVICE_NAME + "=" + StravaConnectorImpl.KEY}, immediate = true)
-public class StravaConnectorImpl implements OAuthConnectorService {
-    public static final String KEY = "StravaApi20";
-    private static final String PROTECTED_RESOURCE_URL = "https://www.strava.com/api/v3/athlete";
+@Component(service = {BitbucketConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class}, property = {JahiaAuthConstants.CONNECTOR_SERVICE_NAME + "=" + BitbucketConnectorImpl.KEY}, immediate = true)
+public class BitbucketConnectorImpl implements OAuthConnectorService {
+    public static final String KEY = "BitbucketApi20";
 
     private JahiaOAuthService jahiaOAuthService;
 
@@ -29,7 +29,7 @@ public class StravaConnectorImpl implements OAuthConnectorService {
 
     @Activate
     private void onActivate() {
-        jahiaOAuthService.addOAuthDefaultApi20(KEY, StravaApi20.instance());
+        jahiaOAuthService.addOAuthDefaultApi20(KEY, BitbucketApi20.instance());
     }
 
     @Deactivate
@@ -38,16 +38,12 @@ public class StravaConnectorImpl implements OAuthConnectorService {
     }
 
     @Override
-    public String getProtectedResourceUrl(ConnectorConfig config) {
-        return PROTECTED_RESOURCE_URL;
+    public String getProtectedResourceUrl(ConnectorConfig connectorConfig) {
+        return "https://api.bitbucket.org/2.0/user";
     }
 
     @Override
     public List<ConnectorPropertyInfo> getAvailableProperties() {
-        return Arrays.asList(
-                new ConnectorPropertyInfo("username", "string"),
-                new ConnectorPropertyInfo("firstname", "string"),
-                new ConnectorPropertyInfo("lastname", "string")
-        );
+        return Collections.singletonList(new ConnectorPropertyInfo("account_id", "string"));
     }
 }

@@ -12,60 +12,41 @@
             <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">
                 <files jcr:primaryType="jnt:folder"/>
                 <contents jcr:primaryType="jnt:contentFolder"/>
-                <keycloak-oauth-view j:defaultTemplate="false"
-                                     j:hiddenTemplate="true"
-                                     j:invertCondition="false"
-                                     j:requireLoggedUser="false"
-                                     j:requirePrivilegedUser="false"
-                                     jcr:primaryType="jnt:contentTemplate">
+                <keycloak-oauth-view jcr:primaryType="jnt:contentTemplate">
                     <pagecontent jcr:primaryType="jnt:contentList">
                         <keycloakoauthview jcr:primaryType="soauthnt:keycloakOAuthView"/>
                     </pagecontent>
                 </keycloak-oauth-view>
-                <strava-oauth-view j:defaultTemplate="false"
-                                   j:hiddenTemplate="true"
-                                   j:invertCondition="false"
-                                   j:requireLoggedUser="false"
-                                   j:requirePrivilegedUser="false"
-                                   jcr:primaryType="jnt:contentTemplate">
+                <strava-oauth-view jcr:primaryType="jnt:contentTemplate">
                     <pagecontent jcr:primaryType="jnt:contentList">
                         <stravaoauthview jcr:primaryType="soauthnt:stravaOAuthView"/>
                     </pagecontent>
                 </strava-oauth-view>
-                <azuread-oauth-view j:defaultTemplate="false"
-                                    j:hiddenTemplate="true"
-                                    j:invertCondition="false"
-                                    j:requireLoggedUser="false"
-                                    j:requirePrivilegedUser="false"
-                                    jcr:primaryType="jnt:contentTemplate">
+                <azuread-oauth-view jcr:primaryType="jnt:contentTemplate">
                     <pagecontent jcr:primaryType="jnt:contentList">
                         <azureadoauthview jcr:primaryType="soauthnt:azureADOAuthView"/>
                     </pagecontent>
                 </azuread-oauth-view>
-                <salesforce-oauth-view j:defaultTemplate="false"
-                                       j:hiddenTemplate="true"
-                                       j:invertCondition="false"
-                                       j:requireLoggedUser="false"
-                                       j:requirePrivilegedUser="false"
-                                       jcr:primaryType="jnt:contentTemplate">
+                <salesforce-oauth-view jcr:primaryType="jnt:contentTemplate">
                     <pagecontent jcr:primaryType="jnt:contentList">
                         <salesforceoauthview jcr:primaryType="soauthnt:salesforceOAuthView"/>
                     </pagecontent>
                 </salesforce-oauth-view>
-                <token-data-mapper-view j:defaultTemplate="false"
-                                        j:hiddenTemplate="true"
-                                        jcr:primaryType="jnt:contentTemplate">
+                <group-mapper-view jcr:primaryType="jnt:contentTemplate">
                     <pagecontent jcr:primaryType="jnt:contentList">
-                        <oktaoauthmapperview jcr:primaryType="soauthnt:tokenDataMapperView"/>
-                    </pagecontent>
-                </token-data-mapper-view>
-                <group-mapper-view j:defaultTemplate="false"
-                                   j:hiddenTemplate="true"
-                                   jcr:primaryType="jnt:contentTemplate">
-                    <pagecontent jcr:primaryType="jnt:contentList">
-                        <oktaoauthmapperview jcr:primaryType="soauthnt:groupMapperView"/>
+                        <groupmapperview jcr:primaryType="soauthnt:groupMapperView"/>
                     </pagecontent>
                 </group-mapper-view>
+                <gitlab-oauth-view jcr:primaryType="jnt:contentTemplate">
+                    <pagecontent jcr:primaryType="jnt:contentList">
+                        <gitlaboauthview jcr:primaryType="soauthnt:gitlabOAuthView"/>
+                    </pagecontent>
+                </gitlab-oauth-view>
+                <bitbucket-oauth-view jcr:primaryType="jnt:contentTemplate">
+                    <pagecontent jcr:primaryType="jnt:contentList">
+                        <bitbucketoauthview jcr:primaryType="soauthnt:bitbucketOAuthView"/>
+                    </pagecontent>
+                </bitbucket-oauth-view>
             </templates>
         </sample-oauth>
     </modules>

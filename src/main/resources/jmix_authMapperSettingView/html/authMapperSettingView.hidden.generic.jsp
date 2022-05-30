@@ -21,11 +21,11 @@
 <c:if test="${empty i18nJSFile}">
     <template:addResources type="javascript" resources="i18n/${script.view.module.bundle.symbolicName}-i18n.js"/>
 </c:if>
-<template:addResources type="javascript" resources="auth/sample-mapper-controller.js"/>
+<template:addResources type="javascript" resources="oauth-mapper-controller.js"/>
 <template:addResources type="css" resources="styles.css"/>
 
 <c:set var="mapperVar" value="mapper${fn:replace(currentNode.identifier, '-', '')}"/>
-<md-card ng-controller="SampleMapperController as ${mapperVar}" class="ng-cloak"
+<md-card ng-controller="OAuthMapperController as ${mapperVar}" class="ng-cloak"
          ng-init="${mapperVar}.init('${currentResource.moduleParams.mapperName}')">
     <div layout="row">
         <md-card-title flex>

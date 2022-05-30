@@ -1,6 +1,6 @@
 package org.foo.modules.sampleoauth.connectors;
 
-import org.foo.modules.sampleoauth.builder.AzureConnectorBuilder;
+import com.github.scribejava.apis.MicrosoftAzureActiveDirectory20Api;
 import org.jahia.modules.jahiaauth.service.ConnectorConfig;
 import org.jahia.modules.jahiaauth.service.ConnectorPropertyInfo;
 import org.jahia.modules.jahiaauth.service.ConnectorService;
@@ -15,12 +15,10 @@ import org.osgi.service.component.annotations.Reference;
 import java.util.Arrays;
 import java.util.List;
 
-@Component(service = { AzureADConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class }, property = {
-        JahiaAuthConstants.CONNECTOR_SERVICE_NAME + "=" + AzureADConnectorImpl.KEY }, immediate = true)
+@Component(service = {AzureADConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class}, property = {
+        JahiaAuthConstants.CONNECTOR_SERVICE_NAME + "=" + AzureADConnectorImpl.KEY}, immediate = true)
 public class AzureADConnectorImpl implements OAuthConnectorService {
     public static final String KEY = "AzureADApi20";
-
-    private static final String PROTECTED_RESOURCE_URL = "https://login.microsoftonline.com/%s/v2.0/.well-known/openid-configuration";
 
     private JahiaOAuthService jahiaOAuthService;
 
@@ -31,7 +29,7 @@ public class AzureADConnectorImpl implements OAuthConnectorService {
 
     @Activate
     private void onActivate() {
-        jahiaOAuthService.addOAuthDefaultApi20(KEY, new AzureConnectorBuilder());
+        jahiaOAuthService.addOAuthDefaultApi20(KEY, connectorConfig -> MicrosoftAzureActiveDirectory20Api.custom(connectorConfig.getProperty("tenantID")));
     }
 
     @Deactivate

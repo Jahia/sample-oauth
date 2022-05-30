@@ -18,8 +18,8 @@
 <%--@elvariable id="currentResource" type="org.jahia.services.render.Resource"--%>
 <%--@elvariable id="url" type="org.jahia.services.render.URLGenerator"--%>
 <template:include view="hidden.generic">
-    <template:param name="connectorServiceName" value="StravaApi20"/>
-    <template:param name="title" value="soauthnt_stravaOAuthView"/>
+    <template:param name="connectorServiceName" value="GitlabApi20"/>
+    <template:param name="title" value="soauthnt_gitlabOAuthView"/>
     <template:param name="properties">
         <json:array>
             <json:object>
@@ -32,11 +32,11 @@
             </json:object>
             <json:object>
                 <json:property name="name" value="scope"/>
-                <json:property name="mandatory" value="${false}"/>
+                <json:property name="mandatory" value="${true}"/>
             </json:object>
             <json:object>
                 <json:property name="name" value="callbackUrl"/>
-                <json:property name="mandatory" value="${false}"/>
+                <json:property name="mandatory" value="${true}"/>
             </json:object>
         </json:array>
     </template:param>

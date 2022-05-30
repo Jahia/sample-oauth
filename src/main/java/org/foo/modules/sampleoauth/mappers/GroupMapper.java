@@ -1,6 +1,5 @@
 package org.foo.modules.sampleoauth.mappers;
 
-import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
 import org.jahia.api.usermanager.JahiaUserManagerService;
 import org.jahia.modules.jahiaauth.service.*;
 import org.jahia.services.content.JCRTemplate;
@@ -50,7 +49,7 @@ public class GroupMapper implements Mapper {
     public List<MappedPropertyInfo> getProperties() {
         return Arrays.asList(
                 new MappedPropertyInfo(JahiaAuthConstants.SSO_LOGIN, "string", null, true),
-                new MappedPropertyInfo(KeycloakConnectorImpl.GROUPS, "string", null, true));
+                new MappedPropertyInfo("groups", "string", null, true));
     }
 
     @Override
@@ -69,8 +68,8 @@ public class GroupMapper implements Mapper {
                         removeUserMembership(userNode);
                     }
 
-                    if (mapperResult.containsKey(KeycloakConnectorImpl.GROUPS)) {
-                        manageUserGroups(userNode, (String) mapperResult.get(KeycloakConnectorImpl.GROUPS).getValue());
+                    if (mapperResult.containsKey("groups")) {
+                        manageUserGroups(userNode, (String) mapperResult.get("groups").getValue());
                     }
 
                     systemSession.save();

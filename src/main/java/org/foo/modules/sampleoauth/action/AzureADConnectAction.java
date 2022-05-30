@@ -1,7 +1,6 @@
 package org.foo.modules.sampleoauth.action;
 
 import org.foo.modules.sampleoauth.connectors.AzureADConnectorImpl;
-import org.foo.modules.sampleoauth.connectors.StravaConnectorImpl;
 import org.jahia.bin.Action;
 import org.jahia.modules.jahiaauth.service.SettingsService;
 import org.jahia.modules.jahiaoauth.action.ConnectToOAuthProvider;

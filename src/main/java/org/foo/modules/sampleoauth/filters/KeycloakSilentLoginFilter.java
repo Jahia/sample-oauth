@@ -1,4 +1,4 @@
-package org.foo.modules.sampleoauth.utils;
+package org.foo.modules.sampleoauth.filters;
 
 import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
 import org.jahia.api.Constants;
@@ -14,7 +14,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(service = RenderFilter.class, immediate = true)
-public class SilentLoginFilter extends AbstractFilter {
+public class KeycloakSilentLoginFilter extends AbstractFilter {
     private SettingsService settingsService;
 
     @Reference
@@ -22,8 +22,8 @@ public class SilentLoginFilter extends AbstractFilter {
         this.settingsService = settingsService;
     }
 
-    public SilentLoginFilter() {
-        setApplyOnNodeTypes("soauthnt:silentLogin");
+    public KeycloakSilentLoginFilter() {
+        setApplyOnNodeTypes("soauthnt:keycloakSilentLogin");
         setApplyOnModes(Constants.LIVE_WORKSPACE);
         setPriority(17.0f);
     }

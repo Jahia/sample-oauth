@@ -1,6 +1,6 @@
 package org.foo.modules.sampleoauth.action;
 
-import org.foo.modules.sampleoauth.connectors.KeycloakConnectorImpl;
+import org.foo.modules.sampleoauth.connectors.GitlabConnectorImpl;
 import org.jahia.bin.Action;
 import org.jahia.modules.jahiaauth.service.SettingsService;
 import org.jahia.modules.jahiaoauth.service.JahiaOAuthService;
@@ -9,7 +9,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(service = Action.class, immediate = true)
-public class KeycloakConnectAction extends AbstractConnectAction {
+public class GitlabConnectAction extends AbstractConnectAction {
     private JahiaOAuthService jahiaOAuthService;
     private SettingsService settingsService;
 
@@ -31,11 +31,11 @@ public class KeycloakConnectAction extends AbstractConnectAction {
 
     @Override
     protected String getActionName() {
-        return "connectToKeycloakApi20Action";
+        return "connectToGitlabApi20Action";
     }
 
     @Override
     protected String getConnectorService() {
-        return KeycloakConnectorImpl.KEY;
+        return GitlabConnectorImpl.KEY;
     }
 }

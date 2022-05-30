@@ -4,7 +4,7 @@
 
 [soauthnt:keycloakOAuthView] > jnt:content, jmix:authConnectorSettingView
 
-[soauthnt:keycloakButton] > jnt:content, joamix:oauthButtonConnector
+[soauthnt:keycloakSilentLogin] > jnt:content, jmix:formContent
 
 [soauthnt:stravaOAuthView] > jnt:content, jmix:authConnectorSettingView
 
@@ -18,9 +18,10 @@
 
 [soauthnt:salesforceButton] > jnt:content, joamix:oauthButtonConnector
 
-[soauthnt:tokenDataMapperView] > jnt:content, jmix:authMapperSettingView
-
 [soauthnt:groupMapperView] > jnt:content, jmix:authMapperSettingView
 
-[soauthnt:silentLogin] > jnt:content, jmix:formContent
+[soauthnt:gitlabOAuthView] > jnt:content, jmix:authConnectorSettingView
 
+[soauthnt:bitbucketOAuthView] > jnt:content, jmix:authConnectorSettingView
+
+[soauthnt:loginModal] > jnt:content, jmix:formContent
