@@ -57,6 +57,7 @@
                         vm.isTechnical = data.isTechnical === 'true';
                         vm.expandedCard = true;
                     } else {
+                        angular.forEach(vm.properties, property => vm[property.name] = property.defaultValue || null);
                         vm.connectorHasSettings = false;
                         vm.enabled = false;
                         vm.isTechnical = false;
