@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+
+    <description>Sample OAuth tags library</description>
+    <display-name>Sample OAuth tags</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>soauth</short-name>
+    <uri>http://auth.foo.org/jahia/tags/1.0</uri>
+    <function>
+        <name>connectorProperty</name>
+        <function-class>org.foo.modules.sampleoauth.connectors.ConnectorUtils</function-class>
+        <function-signature>java.lang.String
+            getConnectorProperty(org.jahia.services.render.RenderContext,java.lang.String,java.lang.String)
+        </function-signature>
+        <example>${soauth:connectorProperty(renderContext, "Saml", "serverLocation")}</example>
+    </function>
+    <function>
+        <name>serverLocation</name>
+        <function-class>org.foo.modules.sampleoauth.connectors.ConnectorUtils</function-class>
+        <function-signature>java.lang.String getServerLocation(org.jahia.services.render.RenderContext)
+        </function-signature>
+        <example>${soauth:serverLocation(renderContext)}</example>
+    </function>
+</taglib>
