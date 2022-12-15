@@ -2,7 +2,6 @@ package org.foo.modules.sampleoauth.connectors;
 
 import org.jahia.modules.jahiaauth.service.ConnectorConfig;
 import org.jahia.modules.jahiaauth.service.ConnectorResultProcessor;
-import org.jahia.modules.jahiaauth.service.JahiaAuthConstants;
 import org.jahia.modules.jahiaauth.service.JahiaAuthMapperService;
 import org.jahia.modules.jahiaauth.service.MappedProperty;
 import org.jahia.modules.jahiaauth.service.MappedPropertyInfo;
@@ -29,7 +28,6 @@ public class TokenDataResultProcessor implements ConnectorResultProcessor {
     public void execute(ConnectorConfig connectorConfig, Map<String, Object> results) {
         // store tokenData to cache
         Map<String, MappedProperty> mapperInfo = new HashMap<>();
-        mapperInfo.put(JahiaAuthConstants.SSO_LOGIN, new MappedProperty(new MappedPropertyInfo(JahiaAuthConstants.SSO_LOGIN), results.get("username")));
         mapperInfo.put(JahiaOAuthConstants.TOKEN_DATA, new MappedProperty(new MappedPropertyInfo(JahiaOAuthConstants.TOKEN_DATA), results.get(JahiaOAuthConstants.TOKEN_DATA)));
         jahiaAuthMapperService.cacheMapperResults(MAPPER_NAME, RequestContextHolder.getRequestAttributes().getSessionId(), mapperInfo);
     }

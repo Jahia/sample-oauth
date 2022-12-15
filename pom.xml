@@ -118,6 +118,7 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
+                        <Jahia-Module-Priority>2</Jahia-Module-Priority>
                         <_dsannotations>*</_dsannotations>
                     </instructions>
                 </configuration>

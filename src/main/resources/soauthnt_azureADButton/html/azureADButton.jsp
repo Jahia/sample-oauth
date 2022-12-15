@@ -21,7 +21,7 @@
         function connectToAzureAD${fn:replace(currentNode.identifier, '-', '')}() {
             var popup = window.open('', "Azure AD Authorization", "menubar=no,status=no,scrollbars=no,width=1145,height=725,modal=yes,alwaysRaised=yes");
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', '<c:url value="${url.base}${renderContext.site.home.path}"/>.connectToAzureADAction.do');
+            xhr.open('GET', '<c:url value="${url.base}${renderContext.mainResource.node.path}"/>.connectToAzureADAction.do');
             xhr.setRequestHeader('Accept', 'application/json;');
             xhr.onreadystatechange = () => {
                 if (xhr.readyState !== 4 || xhr.status !== 200) {
@@ -33,7 +33,7 @@
                         setTimeout(() => {
                             popup.close();
                             if (event.data.isAuthenticate) {
-                                window.location.search = 'site=${renderContext.site.siteKey}';
+                                window.location.search = 'site=${renderContext.site.siteKey}&redirect=' + event.data.redirect;
                             }
                         }, 3000);
                     }
