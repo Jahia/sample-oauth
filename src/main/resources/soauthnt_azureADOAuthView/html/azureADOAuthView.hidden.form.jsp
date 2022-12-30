@@ -14,6 +14,15 @@
 <%--@elvariable id="url" type="org.jahia.services.render.URLGenerator"--%>
 <div layout="row">
     <md-input-container flex>
+        <label message-key="label.host"></label>
+        <input type="text" ng-model="${connectorVar}.host" name="host" required/>
+        <div ng-messages="${connectorFormVar}.host.$error" role="alert">
+            <div ng-message="required" message-key="error.host.required"></div>
+        </div>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
         <label message-key="label.apiKey"></label>
         <input type="text" ng-model="${connectorVar}.apiKey" name="apiKey" required/>
         <div ng-messages="${connectorFormVar}.apiKey.$error" role="alert">
@@ -45,16 +54,6 @@
 
     <div flex="5"></div>
 
-    <md-input-container flex>
-        <label message-key="soauthnt_azureADOAuthView.label.realm"></label>
-        <input type="text" ng-model="${connectorVar}.realm" name="realm"/>
-        <div ng-messages="${connectorFormVar}.realm.$error" role="alert">
-            <div ng-message="required" message-key="soauthnt_azureADOAuthView.error.realm.required"></div>
-        </div>
-    </md-input-container>
-</div>
-
-<div layout="row">
     <md-input-container class="md-block" flex>
         <label message-key="soauthnt_azureADOAuthView.label.tenantID"></label>
         <input type="text" ng-model="${connectorVar}.tenantID" name="tenantID"/>

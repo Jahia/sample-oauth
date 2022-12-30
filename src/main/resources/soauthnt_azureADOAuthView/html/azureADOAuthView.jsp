@@ -23,6 +23,10 @@
     <template:param name="properties">
         <json:array>
             <json:object>
+                <json:property name="name" value="host"/>
+                <json:property name="mandatory" value="${true}"/>
+            </json:object>
+            <json:object>
                 <json:property name="name" value="apiKey"/>
                 <json:property name="mandatory" value="${true}"/>
             </json:object>
@@ -32,10 +36,6 @@
             </json:object>
             <json:object>
                 <json:property name="name" value="scope"/>
-                <json:property name="mandatory" value="${false}"/>
-            </json:object>
-            <json:object>
-                <json:property name="name" value="realm"/>
                 <json:property name="mandatory" value="${false}"/>
             </json:object>
             <json:object>
