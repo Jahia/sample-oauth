@@ -15,28 +15,34 @@ public class AzureB2CApi extends DefaultApi20 {
 
     private static final ConcurrentMap<String, AzureB2CApi> INSTANCES = new ConcurrentHashMap<>();
 
+    private final String host;
+    private final String tenant;
+    private final String policyName;
     private final String hostWithTenant;
 
-    private AzureB2CApi(String hostWithTenant) {
-        this.hostWithTenant = hostWithTenant;
+    private AzureB2CApi(String host, String tenant, String policyName) {
+        this.host = host;
+        this.tenant = tenant;
+        this.policyName = policyName;
+        this.hostWithTenant = host + "/" + tenant;
     }
 
     public static AzureB2CApi instance() {
-        return instance(MSFT_LOGIN_URL, COMMON_TENANT);
+        return instance(MSFT_LOGIN_URL, COMMON_TENANT, "");
     }
 
-    public static AzureB2CApi instance(String host, String tenant) {
-        return INSTANCES.computeIfAbsent(host + tenant, AzureB2CApi::new);
+    public static AzureB2CApi instance(String host, String tenant, String policyName) {
+        return INSTANCES.computeIfAbsent(host + "/" + tenant + "/" + policyName, hostWithTenant -> new AzureB2CApi(host, tenant, policyName));
     }
 
     @Override
     public String getAccessTokenEndpoint() {
-        return hostWithTenant + OAUTH_2 + ENDPOINT_VERSION_PATH + "/token";
+        return host + "/" + policyName + OAUTH_2 + ENDPOINT_VERSION_PATH + "/token";
     }
 
     @Override
     protected String getAuthorizationBaseUrl() {
-        return hostWithTenant + OAUTH_2 + ENDPOINT_VERSION_PATH + "/authorize";
+        return host + "/" + policyName + OAUTH_2 + ENDPOINT_VERSION_PATH + "/authorize";
     }
 
     @Override

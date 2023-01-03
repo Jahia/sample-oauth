@@ -45,7 +45,7 @@ public class AzureADCallbackAction extends Action {
     public AzureADCallbackAction() {
         setName(NAME);
         setRequireAuthenticatedUser(false);
-        setRequiredMethods(HttpMethod.GET.name());
+        setRequiredMethods("GET,POST");
     }
 
     @Override
@@ -68,7 +68,7 @@ public class AzureADCallbackAction extends Action {
                 logger.error("Could not authenticate user", ex);
             }
         } else {
-            logger.error("Could not authenticate user with Google, the callback from the Google server was missing mandatory parameters");
+            logger.error("Could not authenticate user with Azure, the callback from the Azure server was missing mandatory parameters: {}", parameters);
         }
 
         final String redirectUrl;

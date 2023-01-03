@@ -47,7 +47,7 @@ public class AzureADConnectorImpl implements OAuthConnectorService {
 
     @Activate
     private void onActivate() {
-        jahiaOAuthService.addOAuthDefaultApi20(KEY, connectorConfig -> AzureB2CApi.instance(connectorConfig.getProperty("host"), connectorConfig.getProperty("tenantID")));
+        jahiaOAuthService.addOAuthDefaultApi20(KEY, connectorConfig -> AzureB2CApi.instance(connectorConfig.getProperty("host"), connectorConfig.getProperty("tenantID"), connectorConfig.getProperty("p")));
         jahiaSitesService.getSitesNames().forEach(siteName -> {
             ConnectorConfig connectorConfig = settingsService.getConnectorConfig(siteName, KEY);
             if (connectorConfig != null) {

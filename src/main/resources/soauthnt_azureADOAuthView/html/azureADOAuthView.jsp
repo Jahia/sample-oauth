@@ -46,6 +46,25 @@
                 <json:property name="name" value="callbackUrl"/>
                 <json:property name="mandatory" value="${false}"/>
             </json:object>
+            <json:object>
+                <json:property name="name" value="responseType"/>
+                <json:property name="mandatory" value="${true}"/>
+                <json:property name="defaultValue" value="code"/>
+            </json:object>
+            <json:object>
+                <json:property name="name" value="p"/>
+                <json:property name="mandatory" value="${false}"/>
+            </json:object>
+            <json:object>
+                <json:property name="name" value="nonce"/>
+                <json:property name="mandatory" value="${true}"/>
+                <json:property name="defaultValue" value="defaultNonce"/>
+            </json:object>
+            <json:object>
+                <json:property name="name" value="prompt"/>
+                <json:property name="mandatory" value="${true}"/>
+                <json:property name="defaultValue" value="login"/>
+            </json:object>
         </json:array>
     </template:param>
 </template:include>

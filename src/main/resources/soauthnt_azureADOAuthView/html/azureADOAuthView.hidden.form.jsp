@@ -59,7 +59,50 @@
         <input type="text" ng-model="${connectorVar}.tenantID" name="tenantID"/>
         <div ng-messages="${connectorFormVar}.tenantID.$error" ng-show="${connectorFormVar}.tenantID.$invalid"
              role="alert">
-            <div ng-message="required" message-key="soauthnt_azureADOAuthView.error.realm.required"></div>
+            <div ng-message="required" message-key="soauthnt_azureADOAuthView.error.tenantID.required"></div>
+        </div>
+    </md-input-container>
+</div>
+
+<div layout="row">
+    <md-input-container flex>
+        <label message-key="soauthnt_azureADOAuthView.label.p"></label>
+        <input type="text" ng-model="${connectorVar}.p" name="p" required/>
+        <div ng-messages="${connectorFormVar}.p.$error" role="alert">
+            <div ng-message="required" message-key="soauthnt_azureADOAuthView.error.p.required"></div>
+        </div>
+    </md-input-container>
+
+    <div flex="5"></div>
+
+    <md-input-container class="md-block" flex>
+        <label message-key="soauthnt_azureADOAuthView.label.responseType"></label>
+        <input type="text" ng-model="${connectorVar}.responseType" name="responseType" required/>
+        <div ng-messages="${connectorFormVar}.responseType.$error" ng-show="${connectorFormVar}.responseType.$invalid"
+             role="alert">
+            <div ng-message="required" message-key="soauthnt_azureADOAuthView.error.responseType.required"></div>
+        </div>
+    </md-input-container>
+
+    <div flex="5"></div>
+
+    <md-input-container class="md-block" flex>
+        <label message-key="soauthnt_azureADOAuthView.label.nonce"></label>
+        <input type="text" ng-model="${connectorVar}.nonce" name="nonce" required/>
+        <div ng-messages="${connectorFormVar}.nonce.$error" ng-show="${connectorFormVar}.nonce.$invalid"
+             role="alert">
+            <div ng-message="required" message-key="soauthnt_azureADOAuthView.error.nonce.required"></div>
+        </div>
+    </md-input-container>
+
+    <div flex="5"></div>
+
+    <md-input-container class="md-block" flex>
+        <label message-key="soauthnt_azureADOAuthView.label.prompt"></label>
+        <input type="text" ng-model="${connectorVar}.prompt" name="prompt" required/>
+        <div ng-messages="${connectorFormVar}.prompt.$error" ng-show="${connectorFormVar}.prompt.$invalid"
+             role="alert">
+            <div ng-message="required" message-key="soauthnt_azureADOAuthView.error.prompt.required"></div>
         </div>
     </md-input-container>
 </div>
@@ -67,7 +110,7 @@
 <div layout="row">
     <md-input-container class="md-block" flex>
         <label message-key="label.callbackURL"></label>
-        <input type="url" ng-model="${connectorVar}.callbackUrl" name="callbackUrl"/>
+        <input type="url" ng-model="${connectorVar}.callbackUrl" name="callbackUrl" required/>
         <div class="hint" ng-show="${connectorFormVar}.callbackUrl.$valid"
              message-key="soauthnt_azureADOAuthView.hint.callbackURL"></div>
         <div ng-messages="${connectorFormVar}.callbackUrl.$error" ng-show="${connectorFormVar}.callbackUrl.$invalid"
