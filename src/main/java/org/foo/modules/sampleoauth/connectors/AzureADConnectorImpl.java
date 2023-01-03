@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Component(service = {AzureADConnectorImpl.class, OAuthConnectorService.class, ConnectorService.class}, property = {
@@ -68,6 +69,11 @@ public class AzureADConnectorImpl implements OAuthConnectorService {
     @Override
     public String getProtectedResourceUrl(ConnectorConfig config) {
         return "https://graph.microsoft.com/v1.0/me";
+    }
+
+    @Override
+    public List<String> getProtectedResourceUrls(ConnectorConfig config) {
+        return Collections.emptyList();
     }
 
     @Override
